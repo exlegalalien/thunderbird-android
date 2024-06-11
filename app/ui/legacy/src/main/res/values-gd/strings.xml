@@ -28,7 +28,6 @@
     <!--=== General strings ==================================================================-->
     <string name="authors">Ùghdaran</string>
     <string name="accounts_title">Cunntasan</string>
-    <string name="advanced">Adhartach</string>
     <string name="compose_title_compose">Sgrìobh</string>
     <string name="compose_title_reply">Freagair</string>
     <string name="compose_title_reply_all">Freagair na h-uile</string>
@@ -254,7 +253,6 @@
     <string name="spam_folder_label">Pasgan an spama</string>
     <string name="account_setup_incoming_subscribed_folders_only_label">Na seall ach pasganan le fo-sgrìobhadh</string>
     <string name="account_setup_auto_expand_folder">Leudaich am pasgan gu fèin-obrachail</string>
-    <string name="account_setup_options_mail_check_frequency_label">Dè cho tric ’s a dh’iarras sinn am post\?</string>
     <string name="account_setup_options_mail_check_frequency_never">Chan ann idir</string>
     <string name="account_setup_options_mail_check_frequency_15min">Gach cairteal na h-uarach</string>
     <string name="account_setup_options_mail_check_frequency_30min">Gach leth-uair a thìde</string>
@@ -273,7 +271,6 @@
     <string name="idle_refresh_period_36min">Gach 36 mionaid</string>
     <string name="idle_refresh_period_48min">Gach 48 mionaid</string>
     <string name="idle_refresh_period_60min">Gach uair a thìde</string>
-    <string name="account_setup_options_mail_display_count_label">Co mheud teachdaireachd a thèid a shealltainn</string>
     <string name="account_setup_options_mail_display_count_10">10 teachdaireachdan</string>
     <string name="account_setup_options_mail_display_count_25">25 teachdaireachd</string>
     <string name="account_setup_options_mail_display_count_50">50 teachdaireachd</string>
@@ -597,18 +594,6 @@
     <string name="settings_export_failure">Cha b’ urrainn dhuinn na roghainnean às-phortadh</string>
     <!--Displayed after importing accounts when one or multiple accounts require entering a password-->
     <!--Displayed after importing accounts when one or multiple accounts require to use the OAuth authorization flow-->
-    <string name="unread_widget_select_account">Seall co mheud a tha gun leughadh ann an…</string>
-    <string name="unread_widget_account_title">Cunntas</string>
-    <string name="unread_widget_account_summary">An cunntas dhan dèid na teachdaireachdan gun leughadh a chunntadh</string>
-    <string name="unread_widget_unified_inbox_account_summary">An t-oll-bhogsa</string>
-    <string name="unread_widget_folder_enabled_title">Cunntas pasgain</string>
-    <string name="unread_widget_folder_enabled_summary">Seall cunntas nan teachdaireachdan gun leughadh air aon phasgan a-mhàin</string>
-    <string name="unread_widget_folder_title">Pasgan</string>
-    <string name="unread_widget_folder_summary">Am pasgan dhan dèid na teachdaireachdan gun leughadh a chunntadh</string>
-    <string name="unread_widget_action_done">Deiseil</string>
-    <string name="unread_widget_title"><xliff:g id="account_name">%1$s</xliff:g> – <xliff:g id="folder_name">%2$s</xliff:g></string>
-    <string name="unread_widget_account_not_selected">Cha deach cunntas a thaghadh</string>
-    <string name="unread_widget_folder_not_selected">Cha deach pasgan a thaghadh</string>
     <string name="webview_empty_message">Gun teacsa</string>
     <string name="webview_contextmenu_link_view_action">Fosgail an ceangal</string>
     <string name="webview_contextmenu_link_share_action">Co-roinn an ceangal</string>
@@ -747,10 +732,6 @@
     <string name="crypto_msg_encrypted_sign_insecure">ach chan eilear a’ meas gu bheil an iuchair ceann gu ceann tèarainte</string>
     <string name="crypto_msg_encrypted_sign_error">ach tha mearachdan san dàta ceann gu ceann</string>
     <string name="crypto_msg_encrypted_insecure">ach chan eilear a’ meas gu bheil an crioptachadh tèarainte</string>
-    <string name="crypto_info_ok">Ceart ma-thà</string>
-    <string name="crypto_info_view_signer">Seall an neach-soidhnidh</string>
-    <string name="crypto_info_view_sender">Seall an seòladair</string>
-    <string name="crypto_info_view_security_warning">Mion-fhiosrachadh</string>
     <string name="locked_attach_unlock">Thoir a’ ghlas dheth</string>
     <string name="locked_attach_unencrypted">Cha deach a’ phàirt seo a chrioptachadh is dh’fhaoidte gu bheil e neo-thèarainte.</string>
     <string name="locked_attach_title">Ceanglachan gun dìon</string>

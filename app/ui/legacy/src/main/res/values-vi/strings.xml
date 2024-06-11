@@ -35,7 +35,6 @@
     <string name="authors">Người viết</string>
     <string name="about_title">Giới thiệu về Thư K-9</string>
     <string name="accounts_title">Tài khoản</string>
-    <string name="advanced">Nâng cao</string>
     <string name="compose_title_compose">Soạn thư</string>
     <string name="compose_title_reply">Trả lời</string>
     <string name="compose_title_reply_all">Trả lời tất cả</string>
@@ -321,9 +320,6 @@
     <string name="account_settings_search">Tìm kiếm</string>
     <string name="global_settings_splitview_always">Luôn luôn</string>
     <string name="global_settings_splitview_never">Không bao giờ</string>
-    <!--=== Client certificates specific ==================================================================-->
-    <!--Note: This references message_view_download_remainder-->
-    <string name="crypto_info_ok">Thực hiện</string>
     <!--Displayed in the the message list widget when the app hasn't had a chance to send content to it yet-->
     <!--Might be displayed in the message list widget when the list is scrolled and new data can't be fetched fast enough-->
     <!--permissions-->
@@ -376,7 +372,6 @@
     <string name="account_setup_options_mail_check_frequency_15min">Mỗi 15 phút</string>
     <string name="spam_folder_label">Thư mục thư rác</string>
     <string name="general_settings_ui_density_relaxed">Thư giãn</string>
-    <string name="account_setup_options_mail_check_frequency_label">Tần suất thăm dò thư mục</string>
     <string name="idle_refresh_period_label">Làm mới kết nối IDLE</string>
     <string name="account_setup_options_mail_check_frequency_24hour">Mỗi 24 giờ</string>
     <string name="account_setup_options_mail_check_frequency_2hour">Mỗi 2 giờ</string>
@@ -409,7 +404,6 @@
     <string name="account_setup_options_mail_display_count_100">100 tin nhắn</string>
     <string name="idle_refresh_period_36min">Mỗi 36 phút</string>
     <string name="account_setup_options_mail_display_count_25">25 tin nhắn</string>
-    <string name="account_setup_options_mail_display_count_label">Số lượng tin nhắn hiển thị</string>
     <string name="message_view_additional_recipient_prefix">+</string>
     <string name="idle_refresh_period_3min">Mỗi 3 phút</string>
     <string name="account_setup_options_mail_display_count_50">50 tin nhắn</string>
@@ -557,7 +551,6 @@
     <string name="sort_by_flag">Sao</string>
     <string name="message_details_sender_section_title">Người gửi</string>
     <string name="font_size_message_list_date">Ngày</string>
-    <string name="crypto_info_view_sender">Xem người gửi</string>
     <string name="dialog_confirm_mark_all_as_read_title">Xác nhận đánh dấu tất cả là đã đọc</string>
     <string name="sort_flagged_first">Tin nhắn đã gắn dấu sao trước</string>
     <string name="show_starred_count_title">Hiển thị số lượng gắn dấu sao</string>
@@ -668,11 +661,6 @@
     </plurals>
     <string name="dialog_confirm_spam_confirm_button">Có</string>
     <string name="settings_export_progress_text">Đang xuất cài đặt…</string>
-    <string name="unread_widget_folder_enabled_title">Số thư mục</string>
-    <string name="unread_widget_folder_enabled_summary">Hiển thị số chưa đọc của một thư mục</string>
-    <string name="unread_widget_folder_title">Thư mục</string>
-    <string name="unread_widget_account_not_selected">Không có tài khoản được chọn</string>
-    <string name="unread_widget_folder_not_selected">Không có thư mục được chọn</string>
     <string name="webview_contextmenu_link_copy_action">Sao chép đường dẫn vào bảng nhớ tạm</string>
     <string name="webview_contextmenu_link_clipboard_label">Đường dẫn</string>
     <string name="webview_contextmenu_link_text_clipboard_label">Nội dung đường dẫn</string>
@@ -792,11 +780,6 @@
     <string name="dialog_confirm_empty_trash_title">Xác nhận làm trống thùng rác</string>
     <string name="settings_export_success_generic">Xuất cài đặt thành công</string>
     <string name="settings_export_failure">Xuất cài đặt thất bại</string>
-    <string name="unread_widget_unified_inbox_account_summary">Hộp thư thống nhất</string>
-    <string name="unread_widget_select_account">Hiển thị số chưa đọc cho…</string>
-    <string name="unread_widget_account_title">Tài khoản</string>
-    <string name="unread_widget_account_summary">Tài khoản mà số chưa đọc nên hiển thị</string>
-    <string name="unread_widget_title"><xliff:g id="account_name">%1$s</xliff:g> - <xliff:g id="folder_name">%2$s</xliff:g></string>
     <string name="webview_contextmenu_link_view_action">Mở đường dẫn</string>
     <string name="webview_contextmenu_link_share_action">Chia sẻ đường dẫn</string>
     <string name="webview_contextmenu_link_text_copy_action">Sao chép chữ của đường dẫn vào bảng nhớ tạm</string>
@@ -831,8 +814,6 @@
     <string name="crypto_msg_encrypted_unsigned">nhưng không phải hai đầu</string>
     <string name="crypto_msg_title_encrypted_signed_e2e">Đã mã hóa hai đầu</string>
     <string name="crypto_msg_encrypted_insecure">nhưng mã hóa không an toàn</string>
-    <string name="crypto_info_search_key">Khóa tìm kiếm</string>
-    <string name="crypto_info_view_security_warning">Chi tiết</string>
     <string name="message_progress_text">Đang tải…</string>
     <string name="messageview_crypto_error_title">Lỗi giải mã email</string>
     <string name="recipient_error_parse_failed">Lỗi xử lý địa chỉ!</string>
@@ -861,8 +842,6 @@
     <string name="settings_export_button">Xuất</string>
     <string name="webview_empty_message">Không có chữ</string>
     <string name="webview_contextmenu_phone_clipboard_label">Số điện thoại</string>
-    <string name="unread_widget_folder_summary">Thư mục mà số chưa đọc nên hiển thị</string>
-    <string name="unread_widget_action_done">Xong</string>
     <string name="account_settings_remote_search_num_results_entries_25">25</string>
     <string name="account_settings_remote_search_num_results_entries_50">50</string>
     <string name="global_settings_messageview_visible_refile_actions_summary">Hiển thị hành động được chọn trong menu đọc tin nhắn</string>
@@ -929,7 +908,6 @@
     <string name="address_type_mobile">Điện thoại</string>
     <string name="openpgp_inline_text">Email này được gửi bằng tiêu chuẩn PGP/INLINE.
 \nĐiều này chỉ nên sử dụng cho việc tương thích ngược:</string>
-    <string name="crypto_info_view_signer">Xem người ký</string>
     <string name="locked_attach_unlock">Mở khóa</string>
     <string name="account_settings_crypto_hide_sign_only">Ẩn chữ ký không mã hóa</string>
     <string name="account_settings_crypto_hide_sign_only_on">Chỉ chữ ký mã hóa mới được hiển thị</string>

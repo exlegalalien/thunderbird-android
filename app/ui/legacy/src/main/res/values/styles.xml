@@ -15,10 +15,6 @@
         <item name="android:lineSpacingExtra">4dp</item>
     </style>
 
-    <style name="ComposeEditTextLarge" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
-    </style>
-
     <style name="MessageComposeHighlight">
         <item name="highlightBackgroundColor">#99444444</item>
     </style>
@@ -36,13 +32,6 @@
     <style name="NegativeBulletPoint">
         <item name="srcCompat">@drawable/ic_do_not_disturb_on</item>
         <item name="android:tint">?attr/tintColorBulletPointNegative</item>
-    </style>
-
-    <style name="InputLabel" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:paddingBottom">@dimen/input_label_vertical_spacing</item>
-        <item name="android:paddingLeft">@dimen/input_label_horizontal_spacing</item>
-        <item name="android:paddingRight">@dimen/input_label_horizontal_spacing</item>
-        <item name="android:textColor">?android:attr/textColorHint</item>
     </style>
 
     <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">

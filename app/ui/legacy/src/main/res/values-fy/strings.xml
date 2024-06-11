@@ -35,7 +35,6 @@
     <string name="authors">Auteurs</string>
     <string name="about_title">Oer K-9 Mail</string>
     <string name="accounts_title">Accounts</string>
-    <string name="advanced">Avansearre</string>
     <string name="compose_title_compose">Nij berjocht</string>
     <string name="compose_title_reply">Beäntwurdzje</string>
     <string name="compose_title_reply_all">Allen beäntwurdzje</string>
@@ -288,7 +287,6 @@
     <string name="spam_folder_label">Net-winske</string>
     <string name="account_setup_incoming_subscribed_folders_only_label">Allinnich abonnearre mappen toane</string>
     <string name="account_setup_auto_expand_folder">Map automatysk útklappe</string>
-    <string name="account_setup_options_mail_check_frequency_label">Frekwinsje mapkontrôle</string>
     <string name="account_setup_options_mail_check_frequency_never">Nea</string>
     <string name="account_setup_options_mail_check_frequency_15min">Elke 15 minuten</string>
     <string name="account_setup_options_mail_check_frequency_30min">Elke 30 minuten</string>
@@ -307,7 +305,6 @@
     <string name="idle_refresh_period_36min">Elke 36 minuten</string>
     <string name="idle_refresh_period_48min">Elke 48 minuten</string>
     <string name="idle_refresh_period_60min">Elke 60 minuten</string>
-    <string name="account_setup_options_mail_display_count_label">Tal berjochten om te toanen</string>
     <string name="account_setup_options_mail_display_count_10">10 berjochten</string>
     <string name="account_setup_options_mail_display_count_25">25 berjochten</string>
     <string name="account_setup_options_mail_display_count_50">50 berjochten</string>
@@ -674,18 +671,6 @@
     <string name="settings_export_progress_text">Eksportynstellingen…</string>
     <string name="settings_export_success_generic">Ynstellingen mei sukses eksportearre</string>
     <string name="settings_export_failure">Ynstellingen eksportearjen mislearre</string>
-    <string name="unread_widget_select_account">Tal net-lêzen werjaan foar…</string>
-    <string name="unread_widget_account_title">Account</string>
-    <string name="unread_widget_account_summary">De account wêrfan it tal net-lêzen berjochten toand wurdt</string>
-    <string name="unread_widget_unified_inbox_account_summary">Kombinearre Postfek YN</string>
-    <string name="unread_widget_folder_enabled_title">Mapoantal</string>
-    <string name="unread_widget_folder_enabled_summary">It tal net-lêzen berjochten fan in inkelde map toane</string>
-    <string name="unread_widget_folder_title">Map</string>
-    <string name="unread_widget_folder_summary">De map wêrby it tal net-lêzen berjochten toand wurdt</string>
-    <string name="unread_widget_action_done">Dien</string>
-    <string name="unread_widget_title"><xliff:g id="account_name">%1$s</xliff:g> - <xliff:g id="folder_name">%2$s</xliff:g></string>
-    <string name="unread_widget_account_not_selected">Gjin account keazen</string>
-    <string name="unread_widget_folder_not_selected">Gjin map keazen</string>
     <string name="webview_empty_message">Gjin tekst</string>
     <string name="webview_contextmenu_link_view_action">Keppeling iepenje</string>
     <string name="webview_contextmenu_link_share_action">Keppeling diele</string>
@@ -824,11 +809,6 @@
     <string name="crypto_msg_encrypted_sign_insecure">mar ein-ta-ein-kaai is ûnfeilich</string>
     <string name="crypto_msg_encrypted_sign_error">mar ein-ta-ein-gegevens befetsje flaters</string>
     <string name="crypto_msg_encrypted_insecure">mar fersifering is net feilich</string>
-    <string name="crypto_info_ok">OK</string>
-    <string name="crypto_info_search_key">Kaai sykje</string>
-    <string name="crypto_info_view_signer">Undertekener besjen</string>
-    <string name="crypto_info_view_sender">Ofstjoerder besjen</string>
-    <string name="crypto_info_view_security_warning">Details</string>
     <string name="locked_attach_unlock">Deblokkearje</string>
     <string name="locked_attach_unencrypted">Dit ûnderdiel is net fersifere en is miskien ûnfeilich.</string>
     <string name="locked_attach_title">Unbefeilige bylage</string>

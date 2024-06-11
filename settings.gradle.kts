@@ -69,6 +69,10 @@ include(
 )
 
 include(
+    ":feature:widget:unread",
+)
+
+include(
     ":core:common",
     ":core:featureflags",
     ":core:testing",
@@ -82,6 +86,9 @@ include(
     ":core:ui:compose:theme2:thunderbird",
     ":core:ui:compose:testing",
     ":core:ui:legacy:designsystem",
+    ":core:ui:legacy:theme2:common",
+    ":core:ui:legacy:theme2:k9mail",
+    ":core:ui:legacy:theme2:thunderbird",
 )
 
 include(
@@ -112,6 +119,7 @@ include(":plugins:openpgp-api-lib:openpgp-api")
 include(
     ":cli:autodiscovery-cli",
     ":cli:html-cleaner-cli",
+    ":cli:resource-mover-cli",
     ":cli:translation-cli",
 )
 

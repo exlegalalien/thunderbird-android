@@ -28,7 +28,6 @@
     <string name="authors">Аутори</string>
     <string name="about_title">О К-9 пошти</string>
     <string name="accounts_title">Налози</string>
-    <string name="advanced">Напредно</string>
     <string name="compose_title_compose">Састави</string>
     <string name="compose_title_reply">Одговори</string>
     <string name="compose_title_reply_all">Одговори свима</string>
@@ -253,7 +252,6 @@
     <string name="spam_folder_label">Фасцикла нежељених</string>
     <string name="account_setup_incoming_subscribed_folders_only_label">Прикажи само претплаћене фасцикле</string>
     <string name="account_setup_auto_expand_folder">Аутоматски рашири фасциклу</string>
-    <string name="account_setup_options_mail_check_frequency_label">Проверавање фасцикли</string>
     <string name="account_setup_options_mail_check_frequency_never">никад</string>
     <string name="account_setup_options_mail_check_frequency_15min">на 15 минута</string>
     <string name="account_setup_options_mail_check_frequency_30min">на 30 минута</string>
@@ -272,7 +270,6 @@
     <string name="idle_refresh_period_36min">на 36 минута</string>
     <string name="idle_refresh_period_48min">на 48 минута</string>
     <string name="idle_refresh_period_60min">на 60 минута</string>
-    <string name="account_setup_options_mail_display_count_label">Број порука за приказ</string>
     <string name="account_setup_options_mail_display_count_10">10 порука</string>
     <string name="account_setup_options_mail_display_count_25">25 порука</string>
     <string name="account_setup_options_mail_display_count_50">50 порука</string>
@@ -613,18 +610,6 @@
     <string name="settings_export_progress_text">Извозим поставке…</string>
     <string name="settings_export_success_generic">Поставке успешно извезене</string>
     <string name="settings_export_failure">Неуспех извоза поставки</string>
-    <string name="unread_widget_select_account">Прикажи број непрочитаних за…</string>
-    <string name="unread_widget_account_title">Налог</string>
-    <string name="unread_widget_account_summary">Налог за који ће бројач непрочитаних порука бити приказан</string>
-    <string name="unread_widget_unified_inbox_account_summary">Обједињено сандуче</string>
-    <string name="unread_widget_folder_enabled_title">Бројач за фасциклу</string>
-    <string name="unread_widget_folder_enabled_summary">Приказ броја непрочитаних само за једну фасиклу</string>
-    <string name="unread_widget_folder_title">Фасцикла</string>
-    <string name="unread_widget_folder_summary">Фасцикла за коју ће бројач непрочитаних бити приказан</string>
-    <string name="unread_widget_action_done">Заврши</string>
-    <string name="unread_widget_title"><xliff:g id="account_name">%1$s</xliff:g> — <xliff:g id="folder_name">%2$s</xliff:g></string>
-    <string name="unread_widget_account_not_selected">Није изабран налог</string>
-    <string name="unread_widget_folder_not_selected">Фасцикла није изабрана</string>
     <string name="webview_empty_message">Нема текста</string>
     <string name="webview_contextmenu_link_view_action">Отвори везу</string>
     <string name="webview_contextmenu_link_share_action">Дели везу</string>
@@ -763,11 +748,6 @@
     <string name="crypto_msg_encrypted_sign_insecure">али кључ шифровања се не сматра безбедним</string>
     <string name="crypto_msg_encrypted_sign_error">али шифровање има грешке</string>
     <string name="crypto_msg_encrypted_insecure">али шифровање се не сматра безбедним</string>
-    <string name="crypto_info_ok">У реду</string>
-    <string name="crypto_info_search_key">Тражи кључ</string>
-    <string name="crypto_info_view_signer">Погледај потписника</string>
-    <string name="crypto_info_view_sender">Погледај пошиљаоца</string>
-    <string name="crypto_info_view_security_warning">Детаљи</string>
     <string name="locked_attach_unlock">Откључај</string>
     <string name="locked_attach_unencrypted">Овај део није шифрован и може бити небезбедан.</string>
     <string name="locked_attach_title">Незаштићен прилог</string>

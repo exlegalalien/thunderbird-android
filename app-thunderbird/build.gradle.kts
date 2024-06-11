@@ -12,11 +12,14 @@ if (testCoverageEnabled) {
 dependencies {
     implementation(projects.app.common)
     implementation(projects.core.ui.compose.theme2.thunderbird)
+    implementation(projects.core.ui.legacy.theme2.thunderbird)
     implementation(projects.feature.launcher)
 
     implementation(projects.app.core)
     implementation(projects.app.ui.legacy)
     implementation(projects.app.ui.messageListWidget)
+
+    implementation(projects.feature.widget.unread)
 
     implementation(libs.androidx.work.runtime)
 
@@ -49,6 +52,7 @@ android {
                 "bg",
                 "br",
                 "ca",
+                "co",
                 "cs",
                 "cy",
                 "da",

@@ -33,7 +33,6 @@
     <string name="authors">Awduron</string>
     <string name="about_title">Ynghylch K-9 Mail</string>
     <string name="accounts_title">Cyfrifon</string>
-    <string name="advanced">Uwch</string>
     <string name="compose_title_compose">Ysgrifennu</string>
     <string name="compose_title_reply">Ateb</string>
     <string name="compose_title_reply_all">Ateb i bawb</string>
@@ -276,7 +275,6 @@
     <string name="spam_folder_label">Ffolder sbam</string>
     <string name="account_setup_incoming_subscribed_folders_only_label">Dangos dim ond y ffolderi dwi\'n eu dewis</string>
     <string name="account_setup_auto_expand_folder">Awto-ehangu ffolder</string>
-    <string name="account_setup_options_mail_check_frequency_label">Pa mor aml i wirio\'r ffolder</string>
     <string name="account_setup_options_mail_check_frequency_never">Byth</string>
     <string name="account_setup_options_mail_check_frequency_15min">Pob 15 munud</string>
     <string name="account_setup_options_mail_check_frequency_30min">Pob 30 munud</string>
@@ -295,7 +293,6 @@
     <string name="idle_refresh_period_36min">Pob 36 munud</string>
     <string name="idle_refresh_period_48min">Pob 48 munud</string>
     <string name="idle_refresh_period_60min">Pob 60 munud</string>
-    <string name="account_setup_options_mail_display_count_label">Nifer o negeseuon i\'w dangos</string>
     <string name="account_setup_options_mail_display_count_10">10 neges</string>
     <string name="account_setup_options_mail_display_count_25">25 neges</string>
     <string name="account_setup_options_mail_display_count_50">50 neges</string>
@@ -665,18 +662,6 @@
     <string name="settings_export_progress_text">Yn allforio gosodiadau…</string>
     <string name="settings_export_success_generic">Allforiwyd y gosodiadau yn llwyddiannus</string>
     <string name="settings_export_failure">Methwyd ag allforio\'r gosodiadau</string>
-    <string name="unread_widget_select_account">Dangos y nifer heb eu darllen ar gyfer…</string>
-    <string name="unread_widget_account_title">Cyfrif</string>
-    <string name="unread_widget_account_summary">Y cyfrif i ddangos y nifer o negeseuon heb eu darllen</string>
-    <string name="unread_widget_unified_inbox_account_summary">Mewnflwch Unedig</string>
-    <string name="unread_widget_folder_enabled_title">Cyfrif ffolderi</string>
-    <string name="unread_widget_folder_enabled_summary">Dangos nifer o negeseuon heb eu darllen mewn un ffolder</string>
-    <string name="unread_widget_folder_title">Ffolder</string>
-    <string name="unread_widget_folder_summary">Y ffolder i ddangos y cyfrif ar ei chyfer</string>
-    <string name="unread_widget_action_done">Iawn</string>
-    <string name="unread_widget_title"><xliff:g id="account_name">%1$s</xliff:g> - <xliff:g id="folder_name">%2$s</xliff:g></string>
-    <string name="unread_widget_account_not_selected">Cyfrif heb ei ddewis</string>
-    <string name="unread_widget_folder_not_selected">Ffolder heb ei ddewis</string>
     <string name="webview_empty_message">Dim testun</string>
     <string name="webview_contextmenu_link_view_action">Agor dolen</string>
     <string name="webview_contextmenu_link_share_action">Rhannu dolen</string>
@@ -818,11 +803,6 @@
     <string name="crypto_msg_encrypted_sign_insecure">ond dyw\'r allwedd diwedd-i-ddiwedd ddim yn ymddangos yn ddiogel</string>
     <string name="crypto_msg_encrypted_sign_error">ond mae gwallau yn y data diwedd-i-ddiwedd</string>
     <string name="crypto_msg_encrypted_insecure">ond dyw\'r amgryptiad ddim yn ymddangos yn ddiogel</string>
-    <string name="crypto_info_ok">Iawn</string>
-    <string name="crypto_info_search_key">Allwedd Chwilio</string>
-    <string name="crypto_info_view_signer">Gweld Llofnodydd</string>
-    <string name="crypto_info_view_sender">Gweld Anfonwr</string>
-    <string name="crypto_info_view_security_warning">Manylion</string>
     <string name="locked_attach_unlock">Datgloi</string>
     <string name="locked_attach_unencrypted">Ni chafodd y rhan hwn ei amgryptio a gall fod yn anniogel.</string>
     <string name="locked_attach_title">Atodiad heb ei ddiogelu</string>
