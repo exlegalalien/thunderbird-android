@@ -35,8 +35,8 @@ android {
     namespace = "com.fsck.k9"
 
     defaultConfig {
-        applicationId = "com.fsck.k9"
-        testApplicationId = "com.fsck.k9.tests"
+        applicationId = "com.fsck.k9.izim"
+        testApplicationId = "com.fsck.k9.izim.tests"
 
         versionCode = 39001
         versionName = "6.902-SNAPSHOT"
@@ -97,7 +97,7 @@ android {
             ),
         )
 
-        buildConfigField("String", "CLIENT_ID_APP_NAME", "\"K-9 Mail\"")
+        buildConfigField("String", "CLIENT_ID_APP_NAME", "\"K-9 Mail (IZim Edition)\"")
     }
 
     signingConfigs {
