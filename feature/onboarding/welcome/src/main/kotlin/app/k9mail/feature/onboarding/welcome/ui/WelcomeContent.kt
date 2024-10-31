@@ -18,11 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.k9mail.core.ui.compose.designsystem.atom.Surface
 import app.k9mail.core.ui.compose.designsystem.atom.button.ButtonFilled
 import app.k9mail.core.ui.compose.designsystem.atom.button.ButtonText
 import app.k9mail.core.ui.compose.designsystem.atom.text.TextBodyLarge
+import app.k9mail.core.ui.compose.designsystem.atom.text.TextBodySmall
 import app.k9mail.core.ui.compose.designsystem.atom.text.TextDisplayMedium
 import app.k9mail.core.ui.compose.designsystem.template.LazyColumnWithHeaderFooter
 import app.k9mail.core.ui.compose.designsystem.template.ResponsiveContent
@@ -37,6 +39,8 @@ private const val LOGO_SIZE_DP = 200
 internal fun WelcomeContent(
     onStartClick: () -> Unit,
     onImportClick: () -> Unit,
+    appName: String,
+    showImportButton: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -47,11 +51,12 @@ internal fun WelcomeContent(
                 modifier = Modifier.fillMaxSize(),
                 footer = {
                     WelcomeFooter(
+                        showImportButton = showImportButton,
+                        onStartClick = onStartClick,
+                        onImportClick = onImportClick,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = MainTheme.spacings.quadruple),
-                        onStartClick = onStartClick,
-                        onImportClick = onImportClick,
                     )
                 },
                 verticalArrangement = Arrangement.SpaceEvenly,
@@ -65,6 +70,7 @@ internal fun WelcomeContent(
                 }
                 item {
                     WelcomeTitle(
+                        title = appName,
                         modifier = Modifier.defaultItemModifier(),
                     )
                 }
@@ -105,14 +111,16 @@ private fun WelcomeLogo(
 
 @Composable
 private fun WelcomeTitle(
+    title: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = MainTheme.spacings.quadruple),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TextDisplayMedium(
-            text = stringResource(id = R.string.onboarding_welcome_title),
+            text = title,
+            textAlign = TextAlign.Center,
         )
     }
 }
@@ -123,18 +131,20 @@ private fun WelcomeMessage(
 ) {
     Column(
         modifier = Modifier
-            .padding(start = MainTheme.spacings.quadruple, end = MainTheme.spacings.quadruple)
+            .padding(horizontal = MainTheme.spacings.quadruple)
             .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TextBodyLarge(
-            text = stringResource(id = R.string.onboarding_welcome_message),
+            text = stringResource(id = R.string.onboarding_welcome_text),
+            textAlign = TextAlign.Center,
         )
     }
 }
 
 @Composable
 private fun WelcomeFooter(
+    showImportButton: Boolean,
     onStartClick: () -> Unit,
     onImportClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -148,9 +158,18 @@ private fun WelcomeFooter(
             text = stringResource(id = R.string.onboarding_welcome_start_button),
             onClick = onStartClick,
         )
-        ButtonText(
-            text = stringResource(id = R.string.onboarding_welcome_import_button),
-            onClick = onImportClick,
+        if (showImportButton) {
+            ButtonText(
+                text = stringResource(id = R.string.onboarding_welcome_import_button),
+                onClick = onImportClick,
+            )
+        }
+
+        TextBodySmall(
+            text = stringResource(R.string.onboarding_welcome_developed_by),
+            modifier = Modifier
+                .padding(top = MainTheme.spacings.quadruple)
+                .padding(horizontal = MainTheme.spacings.double),
         )
     }
 }

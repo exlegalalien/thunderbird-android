@@ -29,7 +29,7 @@
     <string name="settings_import_outgoing_server_password_hint">Väljuvaid kirju teenindava serveri salasõna</string>
     <string name="settings_import_use_same_password_for_outgoing_server">Kasuta sama salasõna ka väljuvate kirjade serveri tarbeks</string>
     <string name="settings_import_server_name_format">Serveri nimi: <xliff:g id="hostname">%s</xliff:g></string>
-    <string name="settings_import_oauth_description">Kui soovid seda e-posti teenust kasutada K-9 e-postikliendiga, siis logi teenusesse ja anna rakendusele õigus e-kirju ligeda.</string>
+    <string name="settings_import_oauth_description">Kui soovid kasutada seda e-posti teenust, siis logi teenusesse ja anna sellele rakendusele õigus lugeda e-kirju.</string>
     <string name="settings_import_oauth_sign_in">Logi sisse</string>
     <string name="settings_import_oauth_sign_in_with_google">Logi sisse kasutades Google\'i teenuseid</string>
     <string name="settings_import_oauth_error_oauth_flow_canceled">Autentimine on katkenud</string>
@@ -37,4 +37,8 @@
     <string name="settings_import_oauth_error_oauth_not_supported">See teenusepakkuja ei võimalda OAuth 2.0 kasutamist.</string>
     <string name="settings_import_oauth_error_browser_not_found">Rakendus ei suutnud tuvastada veebibrauserit, mida saaks sinu kontole ligipääsu lubamiseks kasutada.</string>
     <string name="settings_import_general_settings_item">Üldised sätted</string>
+    <string name="settings_import_pick_app_button">Impordi rakendusest</string>
+    <string name="settings_import_pick_app_dialog_title">Impordi rakendusest</string>
+    <string name="settings_import_scan_qr_code_button">Skaneeri QR-koodi</string>
+    <string name="settings_import_app_version_not_supported">Sellest rakenduse versioonist pole importimine toetatud.</string>
 </resources>

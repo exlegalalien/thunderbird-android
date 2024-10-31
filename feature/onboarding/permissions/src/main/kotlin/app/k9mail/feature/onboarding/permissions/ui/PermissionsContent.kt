@@ -39,6 +39,7 @@ import app.k9mail.feature.account.common.R as CommonR
 internal fun PermissionsContent(
     state: State,
     onEvent: (Event) -> Unit,
+    brandName: String,
 ) {
     val scrollState = rememberScrollState()
 
@@ -59,7 +60,7 @@ internal fun PermissionsContent(
                     .fillMaxHeight()
                     .verticalScroll(state = scrollState),
             ) {
-                HeaderArea()
+                HeaderArea(brandName = brandName)
 
                 ContentArea(state, onEvent)
 
@@ -72,11 +73,15 @@ internal fun PermissionsContent(
 }
 
 @Composable
-private fun HeaderArea() {
+private fun HeaderArea(
+    brandName: String,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        AppTitleTopHeader()
+        AppTitleTopHeader(
+            title = brandName,
+        )
 
         TextHeadlineSmall(
             text = stringResource(R.string.onboarding_permissions_screen_title),

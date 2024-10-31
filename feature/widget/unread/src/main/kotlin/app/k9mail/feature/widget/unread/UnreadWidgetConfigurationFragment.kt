@@ -11,9 +11,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
+import app.k9mail.legacy.search.SearchAccount
 import com.fsck.k9.Preferences
-import com.fsck.k9.activity.ChooseAccount
-import com.fsck.k9.search.SearchAccount
 import com.fsck.k9.ui.choosefolder.ChooseFolderActivity
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import org.koin.android.ext.android.inject
@@ -41,7 +40,7 @@ class UnreadWidgetConfigurationFragment : PreferenceFragmentCompat() {
 
         unreadAccount = findPreference(PREFERENCE_UNREAD_ACCOUNT)!!
         unreadAccount.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val intent = Intent(requireContext(), ChooseAccount::class.java)
+            val intent = Intent(requireContext(), UnreadWidgetChooseAccountActivity::class.java)
             startActivityForResult(intent, REQUEST_CHOOSE_ACCOUNT)
             false
         }
@@ -60,7 +59,6 @@ class UnreadWidgetConfigurationFragment : PreferenceFragmentCompat() {
                 context = requireContext(),
                 action = ChooseFolderActivity.Action.CHOOSE,
                 accountUuid = selectedAccountUuid!!,
-                showDisplayableOnly = true,
             )
             startActivityForResult(intent, REQUEST_CHOOSE_FOLDER)
             false
@@ -94,7 +92,7 @@ class UnreadWidgetConfigurationFragment : PreferenceFragmentCompat() {
         if (resultCode == Activity.RESULT_OK && data != null) {
             when (requestCode) {
                 REQUEST_CHOOSE_ACCOUNT -> {
-                    val accountUuid = data.getStringExtra(ChooseAccount.EXTRA_ACCOUNT_UUID)!!
+                    val accountUuid = data.getStringExtra(UnreadWidgetChooseAccountActivity.EXTRA_ACCOUNT_UUID)!!
                     handleChooseAccount(accountUuid)
                 }
 

@@ -3,8 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.app.ui.legacy)
-    implementation(projects.app.core)
+    implementation(projects.legacy.ui.legacy)
+    implementation(projects.legacy.core)
+    implementation(projects.legacy.account)
 
     implementation(libs.preferencex)
     implementation(libs.timber)

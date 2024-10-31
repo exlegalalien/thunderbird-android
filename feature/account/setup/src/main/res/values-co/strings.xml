@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="account_setup_title">K-9 Mail</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_required">L’indirizzu elettronicu hè richiestu.</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_not_allowed">St’indirizzu elettronicu ùn hè micca permessu.</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_invalid">St’indirizzu elettronicu ùn hè micca ricunnisciutu cum’è accettevule.</string>
@@ -38,7 +37,7 @@
     <string name="account_setup_create_account_creating">Creazione di contu…</string>
     <string name="account_setup_create_account_error">Un sbagliu hè accadutu durante a creazione di u contu</string>
     <string name="account_setup_create_account_created">U contu hè statu creatu currettamente</string>
-    <string name="account_setup_error_network">Reta</string>
+    <string name="account_setup_error_network">Sbagliu di a reta. Ci vole à verificà a vostra cunnessione è pruvà torna.</string>
     <string name="account_setup_error_unknown">Sbagliu scunnisciutu</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_not_supported">St’indirizzu elettronicu ùn hè micca accettatu.</string>
     <string name="account_setup_auto_discovery_validation_error_password_required">A parolla d’intesa hè richiesta.</string>
@@ -48,7 +47,7 @@
     <string name="account_setup_auto_discovery_result_disclaimer_untrusted_configuration">Avemu ricevutu a cunfigurazione per u vostru servitore di messaghjeria via una cunnessione chì ùn hè micca tantu sicura chì no a vuleriamu. Vole si dì chì ci hè una pussibilità chjuca chjuca chì qualchissia l’abbia alterata. Puderiate verificà torna a cunfigurazione pruvista per assicurassi ch’ella sia degna di cunfidenza ?</string>
     <string name="account_setup_auto_discovery_result_header_subtitle_configuration_not_found">Cunfigurà manualmente</string>
     <string name="account_setup_auto_discovery_result_edit_configuration_button_label">Mudificà a cunfigurazione</string>
-    <string name="account_setup_special_folders_form_description_automatic">L’ozzione « Autumatica » seguiterà autumaticamente i cambiamenti fatti da u servitore. U valore attuale di u servitore hè affissatu trà parentesi.</string>
+    <string name="account_setup_special_folders_form_description_automatic">L’ozzione « Autumaticu » seguiterà autumaticamente i cambiamenti fatti da u servitore. U valore attuale di u servitore hè affissatu trà parentesi.</string>
     <string name="account_setup_special_folders_drafts_folder_label">Cartulare di e bruttacopie</string>
     <string name="account_setup_special_folders_spam_folder_label">Cartulare di i merzaghji (dispiacevule)</string>
     <string name="account_setup_special_folders_trash_folder_label">Cartulare di a curbella</string>

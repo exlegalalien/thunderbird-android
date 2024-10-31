@@ -1,19 +1,20 @@
 package app.k9mail.feature.widget.unread
 
 import android.content.Context
+import app.k9mail.core.mail.folder.api.Folder
+import app.k9mail.core.mail.folder.api.FolderType
+import app.k9mail.legacy.account.Account
+import app.k9mail.legacy.mailstore.FolderRepository
+import app.k9mail.legacy.message.controller.MessageCounts
+import app.k9mail.legacy.message.controller.MessageCountsProvider
+import app.k9mail.legacy.search.LocalSearch
+import app.k9mail.legacy.search.SearchAccount
+import app.k9mail.legacy.ui.folder.FolderNameFormatter
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
-import com.fsck.k9.Account
 import com.fsck.k9.CoreResourceProvider
 import com.fsck.k9.Preferences
-import com.fsck.k9.controller.MessageCounts
-import com.fsck.k9.controller.MessageCountsProvider
-import com.fsck.k9.mailstore.Folder
-import com.fsck.k9.mailstore.FolderRepository
-import com.fsck.k9.mailstore.FolderType
-import com.fsck.k9.search.SearchAccount
-import com.fsck.k9.ui.folders.FolderNameFormatter
 import com.fsck.k9.ui.messagelist.DefaultFolderProvider
 import org.junit.Before
 import org.junit.Test
@@ -35,6 +36,7 @@ class UnreadWidgetDataProviderTest : AutoCloseKoinTest() {
     private val defaultFolderStrategy = createDefaultFolderStrategy()
     private val folderRepository = createFolderRepository()
     private val folderNameFormatter = createFolderNameFormatter()
+    private val coreResourceProvider = createCoreResourceProvider()
     private val provider = UnreadWidgetDataProvider(
         context,
         preferences,
@@ -42,6 +44,7 @@ class UnreadWidgetDataProviderTest : AutoCloseKoinTest() {
         defaultFolderStrategy,
         folderRepository,
         folderNameFormatter,
+        coreResourceProvider,
     )
 
     @Before
@@ -134,6 +137,10 @@ class UnreadWidgetDataProviderTest : AutoCloseKoinTest() {
             return MessageCounts(unread = SEARCH_ACCOUNT_UNREAD_COUNT, starred = 0)
         }
 
+        override fun getMessageCounts(search: LocalSearch): MessageCounts {
+            throw UnsupportedOperationException()
+        }
+
         override fun getUnreadMessageCount(account: Account, folderId: Long): Int {
             return FOLDER_UNREAD_COUNT
         }
@@ -153,6 +160,11 @@ class UnreadWidgetDataProviderTest : AutoCloseKoinTest() {
         on { displayName(FOLDER) } doReturn LOCALIZED_FOLDER_NAME
     }
 
+    private fun createCoreResourceProvider(): CoreResourceProvider = mock {
+        on { searchUnifiedInboxTitle() } doReturn UNIFIED_INBOX_NAME
+        on { searchUnifiedInboxDetail() } doReturn UNIFIED_INBOX_DETAIL
+    }
+
     companion object {
         const val ACCOUNT_UUID = "00000000-0000-0000-0000-000000000000"
         const val ACCOUNT_NAME = "Test account"
@@ -161,6 +173,8 @@ class UnreadWidgetDataProviderTest : AutoCloseKoinTest() {
         const val ACCOUNT_UNREAD_COUNT = 2
         const val FOLDER_UNREAD_COUNT = 3
         const val LOCALIZED_FOLDER_NAME = "Posteingang"
+        const val UNIFIED_INBOX_NAME = "Unified Inbox"
+        const val UNIFIED_INBOX_DETAIL = "All Messages"
         val FOLDER = Folder(
             id = FOLDER_ID,
             name = "INBOX",

@@ -19,7 +19,7 @@
     <string name="settings_import_status_log_in_required">需要登录</string>
     <string name="settings_import_status_not_imported">没有导入</string>
     <string name="settings_import_status_error">导入失败</string>
-    <string name="settings_import_later_button">之后</string>
+    <string name="settings_import_later_button">稍后</string>
     <string name="settings_importing">正在导入设置…</string>
     <plurals name="settings_import_password_prompt">
         <item quantity="other">您需要提供服务器密码才能使用此账号 \"<xliff:g id="account">%s</xliff:g>\"。</item>
@@ -28,12 +28,16 @@
     <string name="settings_import_outgoing_server_password_hint">发件服务器密码</string>
     <string name="settings_import_use_same_password_for_outgoing_server">对发件服务器使用相同密码</string>
     <string name="settings_import_server_name_format">服务器名：<xliff:g id="hostname">%s</xliff:g></string>
-    <string name="settings_import_oauth_description">要在 K-9 Mail 中使用此电子邮件账号，您需要登录并授权应用访问您的电子邮件。</string>
+    <string name="settings_import_oauth_description">要使用此电子邮件账号，您需要登录并授权应用访问您的电子邮件。</string>
     <string name="settings_import_oauth_sign_in">登录</string>
-    <string name="settings_import_oauth_sign_in_with_google">用 Google 登录</string>
+    <string name="settings_import_oauth_sign_in_with_google">使用 Google 登录</string>
     <string name="settings_import_oauth_error_oauth_flow_canceled">授权已取消</string>
     <string name="settings_import_oauth_error_oauth_flow_failed">授权失败，错误如下：<xliff:g id="error">%s</xliff:g></string>
     <string name="settings_import_oauth_error_oauth_not_supported">此提供者目前不支持 OAuth 2.0。</string>
     <string name="settings_import_oauth_error_browser_not_found">此应用找不到用于授权访问您账号的浏览器。</string>
     <string name="settings_import_general_settings_item">常规设置</string>
+    <string name="settings_import_pick_app_button">从应用导入</string>
+    <string name="settings_import_pick_app_dialog_title">从应用导入</string>
+    <string name="settings_import_scan_qr_code_button">扫描二维码</string>
+    <string name="settings_import_app_version_not_supported">应用版本不支持。</string>
 </resources>

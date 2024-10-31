@@ -22,14 +22,13 @@
     <string name="account_setup_auto_discovery_loading_error">Laden e-mailconfiguratie mislukt</string>
     <string name="account_setup_auto_discovery_result_approval_checkbox_label">Ik vertrouw deze configuratie</string>
     <string name="account_setup_options_display_name_error_required">Uw naam is vereist.</string>
-    <string name="account_setup_error_network">Netwerk</string>
+    <string name="account_setup_error_network">Netwerkfout. Controleer uw netwerkverbinding en probeer het opnieuw.</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_invalid">Dit is niet als een geldig e-mailadres herkend.</string>
     <string name="account_setup_options_email_check_frequency_never">Nooit</string>
     <string name="account_setup_auto_discovery_loading_message">Configuratie zoeken…</string>
     <string name="account_setup_options_section_sync_options">Synchronisatieopties</string>
     <string name="account_setup_options_show_notifications_label">Meldingen tonen</string>
     <string name="account_setup_options_section_display_options">Weergaveopties</string>
-    <string name="account_setup_title">K-9 Mail</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_not_allowed">Dit e-mailadres is niet toegestaan.</string>
     <string name="account_setup_create_account_created">Account met succes aangemaakt</string>
     <string name="account_setup_auto_discovery_validation_error_email_address_not_supported">Dit e-mailadres wordt niet ondersteund.</string>

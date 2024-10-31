@@ -1,3 +1,7 @@
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.xpath.XPathConstants
+import javax.xml.xpath.XPathFactory
+
 plugins {
     id(ThunderbirdPlugins.App.androidCompose)
     alias(libs.plugins.dependency.guard)
@@ -10,16 +14,23 @@ if (testCoverageEnabled) {
 }
 
 dependencies {
-    implementation(projects.app.common)
+    implementation(projects.appCommon)
     implementation(projects.core.ui.compose.theme2.k9mail)
     implementation(projects.core.ui.legacy.theme2.k9mail)
     implementation(projects.feature.launcher)
 
-    implementation(projects.app.core)
-    implementation(projects.app.ui.legacy)
-    implementation(projects.app.ui.messageListWidget)
+    implementation(projects.legacy.core)
+    implementation(projects.legacy.ui.legacy)
 
+    implementation(projects.core.featureflags)
+
+    implementation(projects.feature.widget.messageList)
+    implementation(projects.feature.widget.shortcut)
     implementation(projects.feature.widget.unread)
+    implementation(projects.feature.telemetry.noop)
+    implementation(projects.feature.funding.noop)
+    implementation(projects.feature.onboarding.migration.noop)
+    implementation(projects.feature.migration.launcher.noop)
 
     implementation(libs.androidx.work.runtime)
 
@@ -41,8 +52,9 @@ android {
         applicationId = "com.fsck.k9.izim"
         testApplicationId = "com.fsck.k9.izim.tests"
 
-        versionCode = 39001
-        versionName = "6.902-SNAPSHOT"
+        versionCode = 39004
+        versionName = "9.0"
+        versionNameSuffix = "-SNAPSHOT"
 
         // Keep in sync with the resource string array "supported_languages"
         resourceConfigurations.addAll(
@@ -50,7 +62,6 @@ android {
                 "ar",
                 "be",
                 "bg",
-                "br",
                 "ca",
                 "co",
                 "cs",
@@ -68,7 +79,7 @@ android {
                 "fi",
                 "fr",
                 "fy",
-                "gd",
+                "ga",
                 "gl",
                 "hr",
                 "hu",
@@ -80,15 +91,14 @@ android {
                 "ko",
                 "lt",
                 "lv",
-                "ml",
                 "nb",
                 "nl",
+                "nn",
                 "pl",
                 "pt_BR",
                 "pt_PT",
                 "ro",
                 "ru",
-                "sk",
                 "sl",
                 "sq",
                 "sr",
@@ -101,54 +111,21 @@ android {
             ),
         )
 
-        buildConfigField("String", "CLIENT_ID_APP_NAME", "\"K-9 Mail (IZim Edition)\"")
+        buildConfigField("String", "CLIENT_INFO_APP_NAME", "\"K-9 Mail\"")
     }
 
     signingConfigs {
-        if (project.hasProperty("k9mail.keyAlias") &&
-            project.hasProperty("k9mail.keyPassword") &&
-            project.hasProperty("k9mail.storeFile") &&
-            project.hasProperty("k9mail.storePassword")
-        ) {
-            create("release") {
-                keyAlias = project.property("k9mail.keyAlias") as String
-                keyPassword = project.property("k9mail.keyPassword") as String
-                storeFile = file(project.property("k9mail.storeFile") as String)
-                storePassword = project.property("k9mail.storePassword") as String
-            }
-        }
+        createSigningConfig(project, SigningType.K9_RELEASE, isUpload = false)
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.findByName("release")
+            signingConfig = signingConfigs.getByType(SigningType.K9_RELEASE)
 
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro",
-            )
-
-            buildConfigField(
-                "String",
-                "OAUTH_GMAIL_CLIENT_ID",
-                "\"262622259280-hhmh92rhklkg2k1tjil69epo0o9a12jm.apps.googleusercontent.com\"",
-            )
-            buildConfigField(
-                "String",
-                "OAUTH_YAHOO_CLIENT_ID",
-                "\"dj0yJmk9aHNUb3d2MW5TQnpRJmQ9WVdrOWVYbHpaRWM0YkdnbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWIz\"",
-            )
-            buildConfigField(
-                "String",
-                "OAUTH_AOL_CLIENT_ID",
-                "\"dj0yJmk9dUNqYXZhYWxOYkdRJmQ9WVdrOU1YQnZVRFZoY1ZrbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWIw\"",
-            )
-            buildConfigField("String", "OAUTH_MICROSOFT_CLIENT_ID", "\"e647013a-ada4-4114-b419-e43d250f99c5\"")
-            buildConfigField(
-                "String",
-                "OAUTH_MICROSOFT_REDIRECT_URI",
-                "\"msauth://com.fsck.k9/Dx8yUsuhyU3dYYba1aA16Wxu5eM%3D\"",
             )
         }
 
@@ -158,28 +135,6 @@ android {
             enableAndroidTestCoverage = testCoverageEnabled
 
             isMinifyEnabled = false
-
-            buildConfigField(
-                "String",
-                "OAUTH_GMAIL_CLIENT_ID",
-                "\"262622259280-5qb3vtj68d5dtudmaif4g9vd3cpar8r3.apps.googleusercontent.com\"",
-            )
-            buildConfigField(
-                "String",
-                "OAUTH_YAHOO_CLIENT_ID",
-                "\"dj0yJmk9ejRCRU1ybmZjQlVBJmQ9WVdrOVVrZEViak4xYmxZbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTZj\"",
-            )
-            buildConfigField(
-                "String",
-                "OAUTH_AOL_CLIENT_ID",
-                "\"dj0yJmk9cHYydkJkTUxHcXlYJmQ9WVdrOWVHZHhVVXN4VVV3bWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdm\"",
-            )
-            buildConfigField("String", "OAUTH_MICROSOFT_CLIENT_ID", "\"e647013a-ada4-4114-b419-e43d250f99c5\"")
-            buildConfigField(
-                "String",
-                "OAUTH_MICROSOFT_REDIRECT_URI",
-                "\"msauth://com.fsck.k9.debug/VZF2DYuLYAu4TurFd6usQB2JPts%3D\"",
-            )
         }
     }
 
@@ -201,4 +156,45 @@ android {
 
 dependencyGuard {
     configuration("releaseRuntimeClasspath")
+}
+
+tasks.create("printVersionInfo") {
+    val targetBuildType = project.findProperty("buildType") ?: "debug"
+
+    doLast {
+        android.applicationVariants.all { variant ->
+            if (variant.buildType.name == targetBuildType) {
+                val flavor = variant.mergedFlavor
+
+                var buildTypeSource = android.sourceSets.getByName(targetBuildType).res.srcDirs.first()
+                var stringsXmlFile = File(buildTypeSource, "values/strings.xml")
+                if (!stringsXmlFile.exists()) {
+                    buildTypeSource = android.sourceSets.getByName("main").res.srcDirs.first()
+                    stringsXmlFile = File(buildTypeSource, "values/strings.xml")
+                }
+
+                val xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stringsXmlFile)
+                val xPath = XPathFactory.newInstance().newXPath()
+                val expression = "/resources/string[@name='app_name']/text()"
+                val appName = xPath.evaluate(expression, xmlDocument, XPathConstants.STRING) as String
+
+                val output = """
+                    APPLICATION_ID=${variant.applicationId}
+                    APPLICATION_LABEL=$appName
+                    VERSION_CODE=${flavor.versionCode}
+                    VERSION_NAME=${flavor.versionName}
+                    VERSION_NAME_SUFFIX=${flavor.versionNameSuffix ?: ""}
+                    FULL_VERSION_NAME=${flavor.versionName}${flavor.versionNameSuffix ?: ""}
+                """.trimIndent()
+
+                println(output)
+                val githubOutput = System.getenv("GITHUB_OUTPUT")
+                if (githubOutput != null) {
+                    val outputFile = File(githubOutput)
+                    outputFile.writeText(output + "\n")
+                }
+            }
+            true
+        }
+    }
 }

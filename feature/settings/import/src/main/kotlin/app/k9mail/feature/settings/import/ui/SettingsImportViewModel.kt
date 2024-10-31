@@ -1,14 +1,16 @@
 package app.k9mail.feature.settings.import.ui
 
-import android.content.Context
+import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.core.net.toUri
 import androidx.core.os.BundleCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.k9mail.feature.migration.launcher.api.MigrationManager
 import app.k9mail.feature.settings.import.SettingsImportExternalContract.AccountActivator
 import com.fsck.k9.helper.SingleLiveEvent
 import com.fsck.k9.helper.measureRealtimeMillisWithResult
@@ -17,8 +19,11 @@ import com.fsck.k9.preferences.ImportResults
 import com.fsck.k9.preferences.SettingsImporter
 import com.fsck.k9.ui.base.bundle.getEnum
 import com.fsck.k9.ui.base.bundle.putEnum
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,12 +34,20 @@ private typealias AccountUuid = String
 private typealias AccountNumber = Int
 
 internal class SettingsImportViewModel(
-    private val context: Context,
+    private val contentResolver: ContentResolver,
     private val settingsImporter: SettingsImporter,
     private val accountActivator: AccountActivator,
-) : ViewModel() {
+    private val migrationManager: MigrationManager,
+    private val importAppFetcher: ImportAppFetcher,
+    private val backgroundDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    viewModelScope: CoroutineScope = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob()),
+) : ViewModel(viewModelScope) {
     private val uiModelLiveData = MutableLiveData<SettingsImportUiModel>()
     private val actionLiveData = SingleLiveEvent<Action>()
+
+    private var isInitialized = false
+    private var action = SettingsImportAction.Overview
+    private var wasActionHandled = false
 
     private val uiModel = SettingsImportUiModel()
     private var accountsMap: MutableMap<AccountNumber, AccountUuid> = mutableMapOf()
@@ -62,6 +75,35 @@ internal class SettingsImportViewModel(
                 .toSet()
         }
 
+    fun initialize() {
+        if (isInitialized) return
+
+        if (migrationManager.isFeatureIncluded()) {
+            updateUiModel {
+                showMigrationActions()
+            }
+
+            checkForImportApps()
+        }
+
+        isInitialized = true
+    }
+
+    private fun checkForImportApps() {
+        viewModelScope.launch {
+            val isAtLeastOneAppInstalled = withContext(backgroundDispatcher) {
+                importAppFetcher.isAtLeastOneAppInstalled()
+            }
+
+            updateUiModel {
+                if (isAtLeastOneAppInstalled) {
+                    isPickAppButtonPermanentlyDisabled = false
+                    isPickAppButtonEnabled = isPickDocumentButtonEnabled
+                }
+            }
+        }
+    }
+
     fun getActionEvents(): LiveData<Action> = actionLiveData
 
     fun getUiModel(): LiveData<SettingsImportUiModel> {
@@ -72,7 +114,9 @@ internal class SettingsImportViewModel(
         return uiModelLiveData
     }
 
+    @Suppress("LongMethod")
     fun initializeFromSavedState(savedInstanceState: Bundle) {
+        wasActionHandled = true
         contentUri = BundleCompat.getParcelable(savedInstanceState, STATE_CONTENT_URI, Uri::class.java)
         currentlyAuthorizingAccountUuid = savedInstanceState.getString(STATE_CURRENTLY_AUTHORIZING_ACCOUNT_UUID)
 
@@ -84,6 +128,8 @@ internal class SettingsImportViewModel(
             closeButtonLabel = savedInstanceState.getEnum(STATE_CLOSE_BUTTON_LABEL, CloseButtonLabel.OK)
             isPickDocumentButtonVisible = savedInstanceState.getBoolean(STATE_PICK_DOCUMENT_BUTTON_VISIBLE)
             isPickDocumentButtonEnabled = savedInstanceState.getBoolean(STATE_PICK_DOCUMENT_BUTTON_ENABLED)
+            isScanQrCodeButtonVisible = savedInstanceState.getBoolean(STATE_SCAN_QR_CODE_BUTTON_VISIBLE)
+            isScanQrCodeButtonEnabled = savedInstanceState.getBoolean(STATE_SCAN_QR_CODE_BUTTON_ENABLED)
 
             isLoadingProgressVisible = savedInstanceState.getBoolean(STATE_LOADING_PROGRESS_VISIBLE)
             isImportProgressVisible = savedInstanceState.getBoolean(STATE_IMPORT_PROGRESS_VISIBLE)
@@ -148,6 +194,8 @@ internal class SettingsImportViewModel(
             outState.putEnum(STATE_CLOSE_BUTTON_LABEL, closeButtonLabel)
             outState.putBoolean(STATE_PICK_DOCUMENT_BUTTON_VISIBLE, isPickDocumentButtonVisible)
             outState.putBoolean(STATE_PICK_DOCUMENT_BUTTON_ENABLED, isPickDocumentButtonEnabled)
+            outState.putBoolean(STATE_SCAN_QR_CODE_BUTTON_VISIBLE, isScanQrCodeButtonVisible)
+            outState.putBoolean(STATE_SCAN_QR_CODE_BUTTON_ENABLED, isScanQrCodeButtonEnabled)
             outState.putBoolean(STATE_LOADING_PROGRESS_VISIBLE, isLoadingProgressVisible)
             outState.putBoolean(STATE_IMPORT_PROGRESS_VISIBLE, isImportProgressVisible)
             outState.putEnum(STATE_STATUS_TEXT, statusText)
@@ -167,17 +215,50 @@ internal class SettingsImportViewModel(
         outState.putParcelable(STATE_CONTENT_URI, contentUri)
     }
 
+    fun setAction(action: SettingsImportAction) {
+        this.action = action
+
+        if (!wasActionHandled) {
+            wasActionHandled = true
+
+            when (action) {
+                SettingsImportAction.Overview -> Unit
+                SettingsImportAction.ScanQrCode -> onScanQrCodeButtonClicked()
+            }
+        }
+    }
+
     fun onPickDocumentButtonClicked() {
         updateUiModel {
-            disablePickDocumentButton()
+            disablePickButtons()
         }
 
         sendActionEvent(Action.PickDocument)
     }
 
-    fun onDocumentPickCanceled() {
+    fun onScanQrCodeButtonClicked() {
         updateUiModel {
-            enablePickDocumentButton()
+            disablePickButtons()
+        }
+
+        sendActionEvent(Action.ScanQrCode)
+    }
+
+    fun onPickAppButtonClicked() {
+        updateUiModel {
+            disablePickButtons()
+        }
+
+        sendActionEvent(Action.PickApp)
+    }
+
+    fun onDocumentPickCanceled() {
+        if (action == SettingsImportAction.ScanQrCode) {
+            sendActionEvent(Action.Close(importSuccess = false))
+        } else {
+            updateUiModel {
+                enablePickButtons()
+            }
         }
     }
 
@@ -187,6 +268,20 @@ internal class SettingsImportViewModel(
         }
 
         startReadSettingsFile(contentUri)
+    }
+
+    fun onAppPickCanceled() {
+        updateUiModel {
+            enablePickButtons()
+        }
+    }
+
+    fun onAppPicked(packageName: String) {
+        updateUiModel {
+            showLoadingProgress()
+        }
+
+        startReadSettingsFile("content://$packageName.settings/".toUri())
     }
 
     fun onImportButtonClicked() {
@@ -228,9 +323,11 @@ internal class SettingsImportViewModel(
             updateCloseButtonAndImportStatusText()
         }
 
-        GlobalScope.launch(Dispatchers.IO) {
-            with(result) {
-                accountActivator.enableAccount(accountUuid, incomingServerPassword, outgoingServerPassword)
+        viewModelScope.launch(backgroundDispatcher) {
+            withContext(NonCancellable) {
+                with(result) {
+                    accountActivator.enableAccount(accountUuid, incomingServerPassword, outgoingServerPassword)
+                }
             }
         }
     }
@@ -244,8 +341,10 @@ internal class SettingsImportViewModel(
                 updateCloseButtonAndImportStatusText()
             }
 
-            GlobalScope.launch(Dispatchers.IO) {
-                accountActivator.enableAccount(accountUuid)
+            viewModelScope.launch(backgroundDispatcher) {
+                withContext(NonCancellable) {
+                    accountActivator.enableAccount(accountUuid)
+                }
             }
         }
     }
@@ -262,7 +361,7 @@ internal class SettingsImportViewModel(
         viewModelScope.launch {
             try {
                 val (elapsed, contents) = measureRealtimeMillisWithResult {
-                    withContext(Dispatchers.IO) {
+                    withContext(backgroundDispatcher) {
                         readSettings(contentUri)
                     }
                 }
@@ -306,7 +405,7 @@ internal class SettingsImportViewModel(
                 val importAccounts = selectedAccounts.toList()
 
                 val (elapsed, importResults) = measureRealtimeMillisWithResult {
-                    withContext(Dispatchers.IO) {
+                    withContext(backgroundDispatcher) {
                         importSettings(contentUri, importGeneralSettings, importAccounts)
                     }
                 }
@@ -383,7 +482,7 @@ internal class SettingsImportViewModel(
     }
 
     private fun readSettings(contentUri: Uri): ImportContents {
-        val inputStream = context.contentResolver.openInputStream(contentUri)
+        val inputStream = contentResolver.openInputStream(contentUri)
             ?: error("Failed to open settings file for reading: $contentUri")
 
         return inputStream.use {
@@ -392,7 +491,7 @@ internal class SettingsImportViewModel(
     }
 
     private fun importSettings(contentUri: Uri, generalSettings: Boolean, accounts: List<AccountUuid>): ImportResults {
-        val inputStream = context.contentResolver.openInputStream(contentUri)
+        val inputStream = contentResolver.openInputStream(contentUri)
             ?: error("Failed to open settings file for reading: $contentUri")
 
         return inputStream.use {
@@ -467,6 +566,8 @@ internal class SettingsImportViewModel(
         private const val STATE_CLOSE_BUTTON_LABEL = "closeButtonLabel"
         private const val STATE_PICK_DOCUMENT_BUTTON_VISIBLE = "pickDocumentButtonVisible"
         private const val STATE_PICK_DOCUMENT_BUTTON_ENABLED = "pickDocumentButtonEnabled"
+        private const val STATE_SCAN_QR_CODE_BUTTON_VISIBLE = "scanQrCodeButtonVisible"
+        private const val STATE_SCAN_QR_CODE_BUTTON_ENABLED = "scanQrCodeButtonEnabled"
         private const val STATE_LOADING_PROGRESS_VISIBLE = "loadingProgressVisible"
         private const val STATE_IMPORT_PROGRESS_VISIBLE = "importProgressVisible"
         private const val STATE_STATUS_TEXT = "statusText"
@@ -482,6 +583,8 @@ internal class SettingsImportViewModel(
 sealed class Action {
     class Close(val importSuccess: Boolean) : Action()
     object PickDocument : Action()
+    object ScanQrCode : Action()
+    object PickApp : Action()
     class StartAuthorization(val accountUuid: String) : Action()
     class PasswordPrompt(
         val accountUuid: String,

@@ -12,6 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://maven.mozilla.org/maven2")
         maven(url = "https://jitpack.io")
     }
 }
@@ -27,14 +28,7 @@ include(
 )
 
 include(
-    ":app:common",
-    ":app:ui:base",
-    ":app:ui:legacy",
-    ":app:ui:message-list-widget",
-    ":app:core",
-    ":app:storage",
-    ":app:crypto-openpgp",
-    ":app:testing",
+    ":app-common",
 )
 
 include(
@@ -45,6 +39,9 @@ include(
     ":feature:onboarding:main",
     ":feature:onboarding:welcome",
     ":feature:onboarding:permissions",
+    ":feature:onboarding:migration:api",
+    ":feature:onboarding:migration:thunderbird",
+    ":feature:onboarding:migration:noop",
 )
 
 include(
@@ -69,7 +66,34 @@ include(
 )
 
 include(
+    ":feature:navigation:drawer",
+)
+
+include(
+    ":feature:widget:message-list",
+    ":feature:widget:shortcut",
     ":feature:widget:unread",
+)
+
+include(
+    ":feature:migration:provider",
+    ":feature:migration:qrcode",
+    ":feature:migration:launcher:api",
+    ":feature:migration:launcher:noop",
+    ":feature:migration:launcher:thunderbird",
+)
+
+include(
+    ":feature:telemetry:api",
+    ":feature:telemetry:noop",
+    ":feature:telemetry:glean",
+)
+
+include(
+    ":feature:funding:api",
+    ":feature:funding:googleplay",
+    ":feature:funding:link",
+    ":feature:funding:noop",
 )
 
 include(
@@ -81,6 +105,7 @@ include(
     ":core:android:testing",
     ":core:ui:compose:common",
     ":core:ui:compose:designsystem",
+    ":core:ui:compose:navigation",
     ":core:ui:compose:theme2:common",
     ":core:ui:compose:theme2:k9mail",
     ":core:ui:compose:theme2:thunderbird",
@@ -89,6 +114,32 @@ include(
     ":core:ui:legacy:theme2:common",
     ":core:ui:legacy:theme2:k9mail",
     ":core:ui:legacy:theme2:thunderbird",
+    ":core:ui:theme:api",
+)
+
+include(
+    ":core:mail:folder:api",
+)
+
+include(
+    ":legacy:account",
+    ":legacy:common",
+    ":legacy:core",
+    ":legacy:crypto-openpgp",
+    ":legacy:di",
+    ":legacy:folder",
+    ":legacy:mailstore",
+    ":legacy:message",
+    ":legacy:notification",
+    ":legacy:preferences",
+    ":legacy:search",
+    ":legacy:storage",
+    ":legacy:testing",
+    ":legacy:ui:base",
+    ":legacy:ui:account",
+    ":legacy:ui:folder",
+    ":legacy:ui:legacy",
+    ":legacy:ui:theme",
 )
 
 include(

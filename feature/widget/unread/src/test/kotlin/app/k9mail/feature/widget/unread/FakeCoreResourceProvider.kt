@@ -8,10 +8,6 @@ class FakeCoreResourceProvider : CoreResourceProvider {
 
     override fun searchUnifiedInboxDetail(): String = "All messages in unified folders"
 
-    override fun defaultSignature(): String {
-        throw UnsupportedOperationException("not implemented")
-    }
-
     override fun defaultIdentityDescription(): String {
         throw UnsupportedOperationException("not implemented")
     }
@@ -60,19 +56,11 @@ class FakeCoreResourceProvider : CoreResourceProvider {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun encryptedSubject(): String {
-        throw UnsupportedOperationException("not implemented")
-    }
-
     override fun replyHeader(sender: String): String {
         throw UnsupportedOperationException("not implemented")
     }
 
     override fun replyHeader(sender: String, sentDate: String): String {
-        throw UnsupportedOperationException("not implemented")
-    }
-
-    override fun outboxFolderName(): String {
         throw UnsupportedOperationException("not implemented")
     }
 

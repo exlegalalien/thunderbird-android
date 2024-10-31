@@ -39,6 +39,7 @@ internal fun AccountAutoDiscoveryContent(
     state: State,
     onEvent: (Event) -> Unit,
     oAuthViewModel: AccountOAuthContract.ViewModel,
+    brandName: String,
     modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
@@ -59,7 +60,7 @@ internal fun AccountAutoDiscoveryContent(
                     .imePadding(),
             ) {
                 AppTitleTopHeader(
-                    title = stringResource(id = R.string.account_setup_title),
+                    title = brandName,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 AutoDiscoveryContent(

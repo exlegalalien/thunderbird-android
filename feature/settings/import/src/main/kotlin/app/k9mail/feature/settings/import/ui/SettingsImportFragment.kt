@@ -12,22 +12,50 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import app.k9mail.feature.migration.launcher.api.MigrationManager
 import app.k9mail.feature.settings.importing.R
 import com.fsck.k9.ui.base.livedata.observeNotNull
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.fsck.k9.ui.base.R as BaseR
 
 class SettingsImportFragment : Fragment() {
     private val viewModel: SettingsImportViewModel by viewModel()
+    private val migrationManager: MigrationManager by inject()
 
     private lateinit var settingsImportAdapter: FastAdapter<ImportListItem<*>>
     private lateinit var itemAdapter: ItemAdapter<ImportListItem<*>>
+
+    private val qrCodeScannerResultContract = registerForActivityResult(
+        migrationManager.getQrCodeActivityResultContract(),
+    ) { contentUri ->
+        if (contentUri != null) {
+            viewModel.onDocumentPicked(contentUri)
+        } else {
+            viewModel.onDocumentPickCanceled()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.initialize()
+
+        setFragmentResultListener(PickAppDialogFragment.FRAGMENT_RESULT_KEY) { _, result: Bundle ->
+            val packageName = result.getString(PickAppDialogFragment.FRAGMENT_RESULT_APP)
+            if (packageName != null) {
+                viewModel.onAppPicked(packageName)
+            } else {
+                viewModel.onAppPickCanceled()
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings_import, container, false)
@@ -42,11 +70,18 @@ class SettingsImportFragment : Fragment() {
 
         initializeSettingsImportList(viewHolder.settingsImportList)
         viewHolder.pickDocumentButton.setOnClickListener { viewModel.onPickDocumentButtonClicked() }
+        viewHolder.scanQrCodeButton.setOnClickListener { viewModel.onScanQrCodeButtonClicked() }
+        viewHolder.pickAppButton.setOnClickListener { viewModel.onPickAppButtonClicked() }
         viewHolder.importButton.setOnClickListener { viewModel.onImportButtonClicked() }
         viewHolder.closeButton.setOnClickListener { viewModel.onCloseButtonClicked() }
 
         viewModel.getUiModel().observeNotNull(this) { viewHolder.updateUi(it) }
         viewModel.getActionEvents().observeNotNull(this) { handleActionEvents(it) }
+
+        arguments?.let { arguments ->
+            val action = SettingsImportAction.fromBundle(arguments)
+            viewModel.setAction(action)
+        }
     }
 
     private fun initializeSettingsImportList(recyclerView: RecyclerView) {
@@ -92,6 +127,10 @@ class SettingsImportFragment : Fragment() {
         settingsImportList.isVisible = model.isSettingsListVisible
         pickDocumentButton.isInvisible = !model.isPickDocumentButtonVisible
         pickDocumentButton.isEnabled = model.isPickDocumentButtonEnabled
+        scanQrCodeButton.isInvisible = !model.isScanQrCodeButtonVisible
+        scanQrCodeButton.isEnabled = model.isScanQrCodeButtonEnabled
+        pickAppButton.isInvisible = !model.isPickAppButtonVisible
+        pickAppButton.isEnabled = model.isPickAppButtonEnabled
         loadingProgressBar.isVisible = model.isLoadingProgressVisible
         importProgressBar.isVisible = model.isImportProgressVisible
 
@@ -158,6 +197,8 @@ class SettingsImportFragment : Fragment() {
         when (action) {
             is Action.Close -> closeImportScreen(action)
             is Action.PickDocument -> pickDocument()
+            is Action.ScanQrCode -> scanQrCode()
+            is Action.PickApp -> pickApp()
             is Action.PasswordPrompt -> showPasswordPrompt(action)
             is Action.StartAuthorization -> startAuthorization(action)
         }
@@ -180,6 +221,14 @@ class SettingsImportFragment : Fragment() {
             addCategory(Intent.CATEGORY_OPENABLE)
         }
         startActivityForResult(createDocumentIntent, REQUEST_PICK_DOCUMENT)
+    }
+
+    private fun scanQrCode() {
+        qrCodeScannerResultContract.launch(Unit)
+    }
+
+    private fun pickApp() {
+        PickAppDialogFragment().show(parentFragmentManager, "pick_app")
     }
 
     private fun startAuthorization(action: Action.StartAuthorization) {
@@ -262,6 +311,8 @@ class SettingsImportFragment : Fragment() {
 
 private class ViewHolder(view: View) {
     val pickDocumentButton: View = view.findViewById(R.id.pickDocumentButton)
+    val scanQrCodeButton: View = view.findViewById(R.id.scanQrCodeButton)
+    val pickAppButton: View = view.findViewById(R.id.pickAppButton)
     val importButton: View = view.findViewById(R.id.importButton)
     val closeButton: MaterialButton = view.findViewById(R.id.closeButton)
     val loadingProgressBar: View = view.findViewById(R.id.loadingProgressBar)
