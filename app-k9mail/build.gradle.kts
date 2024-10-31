@@ -49,8 +49,8 @@ android {
     namespace = "com.fsck.k9"
 
     defaultConfig {
-        applicationId = "com.fsck.k9"
-        testApplicationId = "com.fsck.k9.tests"
+        applicationId = "com.fsck.k9.izim"
+        testApplicationId = "com.fsck.k9.izim.tests"
 
         versionCode = 39004
         versionName = "9.0"
