@@ -199,7 +199,7 @@
     <string name="global_settings_registered_name_color_changed">Obarvaj imena na seznamu stikov</string>
     <string name="general_settings_contact_name_color_label">Barva imena stika</string>
     <string name="global_settings_messageview_fixedwidth_label">Pisava s stalno širino</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Pri prikazu neoblikovanih besedilnih sporočil se uporabi pisava s črkami stalne širine</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Pri prikazu sporočil v golem besedilu uporabi pisavo s stalno širino</string>
     <string name="global_settings_messageview_autofit_width_label">Samodejno prilagodi prikaz sporočil</string>
     <string name="global_settings_messageview_autofit_width_summary">Prikaz sporočila se skrči, da se po širini prilagodi zaslonu</string>
     <string name="global_settings_confirm_actions_title">Zahtevaj potrditev dejanj</string>
@@ -235,7 +235,7 @@
     <!--Title of the setting to specify the density of the message list-->
     <string name="general_settings_ui_density_default">Privzeto</string>
     <string name="global_settings_privacy_hide_useragent">Skrij program</string>
-    <string name="global_settings_privacy_hide_useragent_detail">Odstrani podatke programa K-9 iz glave pošte</string>
+    <string name="global_settings_privacy_hide_useragent_detail">Odstrani uporabniškega posrednika iz glave pošte</string>
     <string name="global_settings_privacy_hide_timezone">Skrij časovni pas</string>
     <string name="global_settings_privacy_hide_timezone_detail">V glavah poštnih sporočil se uporabi čas UTC in ne krajevni čas</string>
     <string name="global_settings_notification_quick_delete_title">Prikaz gumba za brisanje sporočil</string>
@@ -396,7 +396,6 @@
     <string name="account_settings_openpgp_missing">Ni programa OpenPGP – ali je bila namestitev odstranjena?</string>
     <string name="folder_settings_title">Nastavitve mape</string>
     <string name="folder_settings_in_top_group_label">Pokaži mapo v zgornji skupini</string>
-    <string name="folder_settings_in_top_group_summary">Razvrsti mapo v zgornjo skupino map na seznamu</string>
     <string name="folder_settings_clear_local_folder_action">Počisti krajevna sporočila</string>
     <string name="account_settings_incoming_label">Dohodni strežnik</string>
     <string name="account_settings_incoming_summary">Nastavitev strežnika dohodne pošte</string>
@@ -529,7 +528,6 @@
     <string name="integrated_inbox_title">Skupna mapa prejetih sporočil</string>
     <string name="integrated_inbox_detail">Vsa sporočila v skupnih mapah</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Združi</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Vsa sporočila so prikazana v skupni mapi prejetih sporočil</string>
     <string name="account_settings_no_folder_selected">Brez usklajevanja</string>
     <string name="account_settings_automatic_special_folder">Samodejno (%s)</string>
     <string name="font_size_settings_title">Velikost pisave</string>
@@ -888,7 +886,7 @@ Sporočilo lahko shranite in ga uporabite kot varno kopijo šifrirnega ključa. 
     <string name="general_settings_post_mark_as_unread_action_stay">Ostani na trenutnem sporočilu</string>
     <string name="general_settings_post_mark_as_unread_action_title">Ko označite sporočilo kot neprebrano</string>
     <string name="general_settings_post_mark_as_unread_action_return_to_list">Vrni se na seznam sporočil</string>
-    <string name="account_delete_dlg_instructions_fmt">Račun \"<xliff:g id="account">%s</xliff:g>\" bo odstranjen iz <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">Račun \"<xliff:g id="account">%1$s</xliff:g>\" bo odstranjen iz <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="settings_ui_telemetry_title">Uporaba in tehnični podatki</string>
     <string name="settings_ui_data_collection">Zbiranje podatkov</string>
     <string name="push_notification_state_alarm_permission_missing">Manjka dovoljenje za nastavitev alarma.</string>
@@ -898,4 +896,14 @@ Sporočilo lahko shranite in ga uporabite kot varno kopijo šifrirnega ključa. 
     <string name="folder_settings_push_label">Potisk mape</string>
     <string name="folder_settings_visible_label">Prikaz mape</string>
     <string name="folder_settings_sync_label">Usklajevanje mape</string>
+    <string name="save_attachment_action">Shrani priponko</string>
+    <string name="volume_navigation_title_short">Navigacija s tipko za glasnost</string>
+    <string name="push_notification_grant_alarm_permission">Tapnite za odobritev dovoljenja.</string>
+    <string name="dialog_openkeychain_info_text">Aplikacija OpenKeychain je potrebna za omogočanje podpore za šifriranje od konca do konca.</string>
+    <string name="settings_ui_telemetry_description">Z Mozillo deli podatke o zmogljivosti, uporabi, strojni opremi in prilagajanju tega programa z namenom izboljšanja Thunderbirda</string>
+    <string name="volume_navigation_summary">V pogledu sporočil se med sporočili pomikajte z gumboma za glasnost</string>
+    <string name="settings_list_action_support">Podprite <xliff:g id="app_name">%s</xliff:g></string>
+    <string name="push_info_notification_explanation_text">Ko uporabljate potisna sporočila, <xliff:g id="app_name">%1$s</xliff:g> vzdržuje povezavo s poštnim strežnikom. Android zahteva prikaz obvestila, ko je aplikacija aktivna v ozadju. <xliff:g id="optional_extended_explanation">%2$s</xliff:g></string>
+    <string name="about_app_authors_thunderbird">Thunderbirdova mobilna ekipa</string>
+    <string name="expand_content_description">Razširi</string>
 </resources>

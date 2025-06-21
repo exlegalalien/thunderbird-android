@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
-
-import app.k9mail.legacy.account.Account;
+import net.thunderbird.core.android.account.LegacyAccount;
+import net.thunderbird.core.featureflag.FeatureFlagProvider;
+import net.thunderbird.core.featureflag.FeatureFlagResult.Disabled;
 import app.k9mail.legacy.message.controller.SimpleMessagingListener;
 import com.fsck.k9.K9;
 import com.fsck.k9.K9RobolectricTest;
@@ -35,7 +36,7 @@ import com.fsck.k9.mailstore.SendState;
 import com.fsck.k9.mailstore.SpecialLocalFoldersCreator;
 import com.fsck.k9.notification.NotificationController;
 import com.fsck.k9.notification.NotificationStrategy;
-import app.k9mail.core.common.mail.Protocols;
+import net.thunderbird.core.common.mail.Protocols;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class MessagingControllerTest extends K9RobolectricTest {
     private static final int MAXIMUM_SMALL_MESSAGE_SIZE = 1000;
 
     private MessagingController controller;
-    private Account account;
+    private LegacyAccount account;
     @Mock
     private BackendManager backendManager;
     @Mock
@@ -111,6 +112,7 @@ public class MessagingControllerTest extends K9RobolectricTest {
 
     private Preferences preferences;
     private String accountUuid;
+    private FeatureFlagProvider featureFlagProvider;
 
 
     @Before
@@ -120,11 +122,22 @@ public class MessagingControllerTest extends K9RobolectricTest {
         appContext = RuntimeEnvironment.getApplication();
 
         preferences = Preferences.getPreferences();
+        featureFlagProvider = key -> Disabled.INSTANCE;
 
-        controller = new MessagingController(appContext, notificationController, notificationStrategy,
-                localStoreProvider, backendManager, preferences, messageStoreManager,
-                saveMessageDataCreator, specialLocalFoldersCreator, new LocalDeleteOperationDecider(),
-                Collections.<ControllerExtension>emptyList());
+        controller = new MessagingController(
+            appContext,
+            notificationController,
+            notificationStrategy,
+            localStoreProvider,
+            backendManager,
+            preferences,
+            messageStoreManager,
+            saveMessageDataCreator,
+            specialLocalFoldersCreator,
+            new LocalDeleteOperationDecider(),
+                Collections.<ControllerExtension>emptyList(),
+                featureFlagProvider
+        );
 
         configureAccount();
         configureBackendManager();

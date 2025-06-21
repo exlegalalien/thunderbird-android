@@ -1,8 +1,26 @@
 plugins {
-    id(ThunderbirdPlugins.Library.jvm)
-    alias(libs.plugins.android.lint)
+    id(ThunderbirdPlugins.Library.kmp)
 }
 
-dependencies {
-    testImplementation(projects.core.testing)
+android {
+    namespace = "net.thunderbird.core.common"
+}
+
+kotlin {
+    sourceSets {
+        commonTest.dependencies {
+            implementation(projects.core.testing)
+        }
+        jvmMain.dependencies {
+            implementation(libs.androidx.annotation)
+        }
+    }
+
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            listOf(
+                "-Xexpect-actual-classes",
+            ),
+        )
+    }
 }

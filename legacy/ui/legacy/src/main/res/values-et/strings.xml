@@ -197,7 +197,7 @@
     <string name="global_settings_registered_name_color_changed">Näita kontakte nimekirjas värvilisena</string>
     <string name="general_settings_contact_name_color_label">Kontakti nime värv</string>
     <string name="global_settings_messageview_fixedwidth_label">Fikseeritud laiusega fondid</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Kasuta lihtteksti kirjades fikseeritud laiusega fonti</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Kasuta lihttekstiga koostatud kirjades fikseeritud laiusega fonti</string>
     <string name="global_settings_messageview_autofit_width_label">Sobita kirjad automaatselt</string>
     <string name="global_settings_messageview_autofit_width_summary">Kahanda kirju ekraanile mahutamiseks</string>
     <string name="global_settings_confirm_actions_title">Kinnita toiming</string>
@@ -397,7 +397,6 @@
     <string name="account_settings_openpgp_missing">OpenPGP rakendus puudub - kas see on eemaldatud?</string>
     <string name="folder_settings_title">Kausta sätted</string>
     <string name="folder_settings_in_top_group_label">Näita tipp grupis</string>
-    <string name="folder_settings_in_top_group_summary">Näita kaustade loendi tippu lähedal</string>
     <string name="folder_settings_clear_local_folder_action">Puhasta kohalikud kirjad</string>
     <string name="account_settings_incoming_label">Sissetuleva meili server</string>
     <string name="account_settings_incoming_summary">Konfigureeri sisse tuleva meili server</string>
@@ -530,7 +529,6 @@
     <string name="integrated_inbox_title">Koondsisendkaust</string>
     <string name="integrated_inbox_detail">Kõik kirjad koondkaustades</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Koonda</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Kõiki kirju näidatakse koondsisendkaustas</string>
     <string name="account_settings_no_folder_selected">Mitte ükski</string>
     <string name="account_settings_automatic_special_folder">Automaatne (%s)</string>
     <string name="font_size_settings_title">Fondi suurus</string>
@@ -879,7 +877,7 @@ Palun jäta see kiri alles ning kasuta seda muu hulgas oma krüptovõtme varunda
     <string name="general_settings_post_mark_as_unread_action_return_to_list">mine tagasi sõnumite loendivaatesse</string>
     <string name="push_notification_state_alarm_permission_missing">Puuduvad õigused alarmide seadistamiseks</string>
     <string name="push_notification_grant_alarm_permission">Õiguste jagamiseks klõpsi.</string>
-    <string name="account_delete_dlg_instructions_fmt">Kasutajakonto \"<xliff:g id="account">%s</xliff:g>\" kustutatakse <xliff:g id="app_name">%s</xliff:g>ist.</string>
+    <string name="account_delete_dlg_instructions_fmt">Kasutajakonto \"<xliff:g id="account">%1$s</xliff:g>\" kustutatakse <xliff:g id="app_name">%2$s</xliff:g>ist.</string>
     <string name="push_info_notification_explanation_text">Tõuketeenuste kasutamisel <xliff:g id="app_name">%1$s</xliff:g> hoiab töös ühendust e-posti serveriga. Kui rakendus on taustal pidevalt aktiivne, siis Android eeldab, et selle kohta kuvatakse pidevat teavitust. Lisateave: <xliff:g id="optional_extended_explanation">%2$s</xliff:g></string>
     <string name="about_title">Teave <xliff:g id="app_name">%s</xliff:g>i kohta</string>
     <string name="dialog_openkeychain_info_text">Läbiva krüptimise kasutamiseks on vajalik OpenKeychaini rakendus.</string>
@@ -896,4 +894,8 @@ Palun jäta see kiri alles ning kasuta seda muu hulgas oma krüptovõtme varunda
     <string name="save_attachment_action">Salvesta manus</string>
     <string name="volume_navigation_title_short">Helivaljuse nupu kasutamine liikumiseks</string>
     <string name="volume_navigation_summary">Sõnumite vaates liigu helivaljuse nuppudega eri sõnumite vahel</string>
+    <string name="expand_content_description">Laienda vaadet</string>
+    <string name="dialog_confirm_empty_spam_title">Kinnita rämpsposti kausta tühjendamine</string>
+    <string name="dialog_confirm_empty_spam_message">Kas kindlasti soovid rämpsposti kausta tühjendada?</string>
+    <string name="empty_spam_action">Tühjenda rämpsposti kaust</string>
 </resources>

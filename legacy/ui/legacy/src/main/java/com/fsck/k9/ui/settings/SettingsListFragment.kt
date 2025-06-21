@@ -15,15 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import app.k9mail.core.common.provider.BrandNameProvider
-import app.k9mail.core.featureflag.FeatureFlagKey
-import app.k9mail.core.featureflag.FeatureFlagProvider
 import app.k9mail.core.ui.legacy.designsystem.atom.icon.Icons
 import app.k9mail.feature.funding.api.FundingManager
 import app.k9mail.feature.funding.api.FundingType
 import app.k9mail.feature.launcher.FeatureLauncherActivity
 import app.k9mail.feature.launcher.FeatureLauncherTarget
-import app.k9mail.legacy.account.Account
 import com.fsck.k9.ui.R
 import com.fsck.k9.ui.base.livedata.observeNotNull
 import com.fsck.k9.ui.settings.account.AccountSettingsActivity
@@ -34,6 +30,8 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.drag.SimpleDragCallback
 import com.mikepenz.fastadapter.utils.DragDropUtil
+import net.thunderbird.core.android.account.LegacyAccount
+import net.thunderbird.core.common.provider.BrandNameProvider
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import app.k9mail.feature.settings.importing.R as SettingsImportR
@@ -42,7 +40,6 @@ class SettingsListFragment : Fragment(), ItemTouchCallback {
     private val viewModel: SettingsViewModel by viewModel()
     private val fundingManager: FundingManager by inject()
     private val brandNameProvider: BrandNameProvider by inject()
-    private val featureFlagProvider: FeatureFlagProvider by inject()
 
     private lateinit var itemAdapter: ItemAdapter<GenericItem>
 
@@ -93,7 +90,7 @@ class SettingsListFragment : Fragment(), ItemTouchCallback {
         }
     }
 
-    private fun populateSettingsList(accounts: List<Account>) {
+    private fun populateSettingsList(accounts: List<LegacyAccount>) {
         val listItems = buildSettingsList {
             addAction(
                 text = getString(R.string.general_settings_title),
@@ -151,17 +148,14 @@ class SettingsListFragment : Fragment(), ItemTouchCallback {
     private fun SettingsListBuilder.addFunding() {
         when (fundingManager.getFundingType()) {
             FundingType.GOOGLE_PLAY -> {
-                featureFlagProvider.provide(FeatureFlagKey("funding_google_play"))
-                    .onEnabled {
-                        addIntent(
-                            text = getString(R.string.settings_list_action_support, brandNameProvider.brandName),
-                            icon = Icons.Outlined.Favorite,
-                            intent = FeatureLauncherActivity.getIntent(
-                                context = requireActivity(),
-                                target = FeatureLauncherTarget.Funding,
-                            ),
-                        )
-                    }
+                addIntent(
+                    text = getString(R.string.settings_list_action_support, brandNameProvider.brandName),
+                    icon = Icons.Outlined.Favorite,
+                    intent = FeatureLauncherActivity.getIntent(
+                        context = requireActivity(),
+                        target = FeatureLauncherTarget.Funding,
+                    ),
+                )
             }
 
             FundingType.LINK -> {
@@ -194,7 +188,7 @@ class SettingsListFragment : Fragment(), ItemTouchCallback {
         }
     }
 
-    private fun launchAccountSettings(account: Account) {
+    private fun launchAccountSettings(account: LegacyAccount) {
         AccountSettingsActivity.start(requireActivity(), account.uuid)
     }
 
@@ -222,7 +216,7 @@ class SettingsListFragment : Fragment(), ItemTouchCallback {
             settingsList.add(UrlActionItem(itemId, text, url, icon))
         }
 
-        fun addAccount(account: Account, isDraggable: Boolean) {
+        fun addAccount(account: LegacyAccount, isDraggable: Boolean) {
             settingsList.add(AccountItem(account, isDraggable))
         }
 

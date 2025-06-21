@@ -5,6 +5,9 @@ local.properties
 # Kotlin
 .kotlin/
 
+# mdBook
+book/
+
 # Generated folders
 bin/
 build/
@@ -40,3 +43,6 @@ captures/
 
 # Mac thumbnail db
 .DS_Store
+
+# Screenshots
+adb-screenshots/

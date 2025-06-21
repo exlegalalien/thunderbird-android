@@ -200,7 +200,7 @@
     <string name="global_settings_registered_name_color_changed">Забарвлювати імена з вашого списку контактів</string>
     <string name="general_settings_contact_name_color_label">Колір імені контакту</string>
     <string name="global_settings_messageview_fixedwidth_label">Моноширинні шрифти</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Використовувати моноширинний шрифт для показу звичайних текстових повідомлень</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Використовувати шрифт фіксованої ширини під час показу простих текстових повідомлень</string>
     <string name="global_settings_messageview_autofit_width_label">Допасовувати текст повідомлень до ширини екрана</string>
     <string name="global_settings_messageview_autofit_width_summary">Стискати текст повідомлень до ширини екрана</string>
     <string name="global_settings_confirm_actions_title">Підтвердження дій</string>
@@ -400,7 +400,6 @@
     <string name="account_settings_openpgp_missing">Немає OpenPGP-застосунку — чи був він видалений?</string>
     <string name="folder_settings_title">Налаштування тек</string>
     <string name="folder_settings_in_top_group_label">Показувати у верхній групі</string>
-    <string name="folder_settings_in_top_group_summary">Показувати у верхній частині списку тек</string>
     <string name="folder_settings_clear_local_folder_action">Очистити локальні повідомлення</string>
     <string name="account_settings_incoming_label">Сервер вхідної пошти</string>
     <string name="account_settings_incoming_summary">Налаштувати сервер вхідної пошти</string>
@@ -533,7 +532,6 @@
     <string name="integrated_inbox_title">Об\'єднані Вхідні</string>
     <string name="integrated_inbox_detail">Усі повідомлення в об\'єднаних теках</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Об’єднати</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Усі повідомлення показуються у теці \"Об\'єднані Вхідні\"</string>
     <string name="account_settings_no_folder_selected">Жодної</string>
     <string name="account_settings_automatic_special_folder">Автоматично (%s)</string>
     <string name="font_size_settings_title">Розмір шрифту</string>
@@ -897,7 +895,7 @@
     <string name="folder_list_show_hidden_folders">Показати приховані теки</string>
     <string name="folder_settings_visible_label">Показати теку</string>
     <string name="settings_list_action_support">Підтримка <xliff:g id="app_name">%s</xliff:g></string>
-    <string name="account_delete_dlg_instructions_fmt">Обліковий запис\"<xliff:g id="account">%s</xliff:g>\" буде вилучено з <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">Обліковий запис\"<xliff:g id="account">%1$s</xliff:g>\" буде вилучено з <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="dialog_openkeychain_info_text">Застосунок OpenKeychain необхідний для підтримки наскрізного шифрування.</string>
     <string name="push_notification_state_alarm_permission_missing">Відсутній дозвіл на планування оповіщень</string>
     <string name="push_notification_grant_alarm_permission">Торкніться, щоб надати дозвіл.</string>
@@ -907,4 +905,8 @@
     <string name="save_attachment_action">Зберегти вкладення</string>
     <string name="volume_navigation_title_short">Навігація кнопками гучності</string>
     <string name="volume_navigation_summary">Перехід між повідомленнями за допомогою клавіш гучності у вікні перегляду повідомлень</string>
+    <string name="expand_content_description">Розгорнути</string>
+    <string name="dialog_confirm_empty_spam_message">Очистити теку зі спамом?</string>
+    <string name="empty_spam_action">Очистити спам</string>
+    <string name="dialog_confirm_empty_spam_title">Підтвердити очищення спаму</string>
 </resources>

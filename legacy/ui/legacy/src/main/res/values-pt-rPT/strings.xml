@@ -399,7 +399,6 @@
     <string name="account_settings_openpgp_missing">Falta uma aplicação OpenPGP; foi desinstalada? </string>
     <string name="folder_settings_title">Configurações da pasta</string>
     <string name="folder_settings_in_top_group_label">Mostrar no grupo do topo</string>
-    <string name="folder_settings_in_top_group_summary">Mostrar junto ao topo da lista de pastas</string>
     <string name="folder_settings_clear_local_folder_action">Apagar mensagens locais</string>
     <string name="account_settings_incoming_label">Servidor de entrada</string>
     <string name="account_settings_incoming_summary">Configure o servidor de email de entrada</string>
@@ -532,7 +531,6 @@
     <string name="integrated_inbox_title">Caixa de entrada unificada</string>
     <string name="integrated_inbox_detail">Todas as mensagens em pastas unificadas</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Unificar</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Todas as mensagens são mostradas na caixa de entrada unificada</string>
     <string name="account_settings_no_folder_selected">Nenhuma</string>
     <string name="account_settings_automatic_special_folder">Automático (%s)</string>
     <string name="font_size_settings_title">Tamanho da letra</string>
@@ -884,7 +882,7 @@ Pode manter esta mensagem e usá-la como uma cópia de segurança para a sua cha
     <string name="general_settings_post_remove_action_title">Depois de apagar ou mover mensagem</string>
     <string name="background_work_notification_remove_account">A remover conta…</string>
     <string name="about_app_authors_thunderbird">Equipa do Thunderbird Mobile</string>
-    <string name="account_delete_dlg_instructions_fmt">A conta \"<xliff:g id="account">%s</xliff:g>\"será removida de <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">A conta \"<xliff:g id="account">%1$s</xliff:g>\"será removida de <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="push_notification_state_alarm_permission_missing">Falta a permissão para agendar alarmes</string>
     <string name="push_notification_grant_alarm_permission">Toque para conceder a permissão.</string>
     <string name="about_title">Acerca de <xliff:g id="app_name">%s</xliff:g></string>

@@ -282,7 +282,7 @@
     <string name="global_settings_registered_name_color_changed">Dathaigh ainmneacha i do liosta teagmhála</string>
     <string name="general_settings_contact_name_color_label">Dath ainm teagmhála</string>
     <string name="global_settings_messageview_fixedwidth_label">Clónna leithead seasta</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Úsáid cló ar leithead seasta agus teachtaireachtaí gnáth-théacs á dtaispeáint</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Úsáid cló ar leithead seasta agus teachtaireachtaí gnáth-théacs á dtaispeáint agat</string>
     <string name="global_settings_messageview_autofit_width_summary">Laghdaigh teachtaireachtaí chun an scáileán a oiriúnú</string>
     <string name="general_settings_post_remove_action_return_to_list">Fill ar liosta na dteachtaireachtaí</string>
     <string name="general_settings_post_remove_action_title">Tar éis teachtaireacht a scriosadh nó a bhogadh</string>
@@ -457,7 +457,6 @@
     <string name="account_settings_sync_remote_deletetions_label">Sioncronaigh scriosadh an fhreastalaí</string>
     <string name="account_settings_sync_remote_deletetions_summary">Bain teachtaireachtaí nuair a scriostar iad ar an bhfreastalaí</string>
     <string name="folder_settings_in_top_group_label">Taispeáin sa ghrúpa is fearr</string>
-    <string name="folder_settings_in_top_group_summary">Taispeáin gar do bharr liosta na bhfillteán</string>
     <string name="folder_settings_visible_label">Taispeáin fillteán</string>
     <string name="folder_settings_sync_label">Cumasaigh sioncronú</string>
     <string name="folder_settings_push_label">Cumasaigh Brúigh</string>
@@ -580,7 +579,6 @@
     <string name="integrated_inbox_title">Bosca Isteach Aontaithe</string>
     <string name="integrated_inbox_detail">Gach teachtaireacht i bhfillteáin aontaithe</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Aontú</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Taispeántar gach teachtaireacht i mBosca Isteach Aontaithe</string>
     <string name="account_settings_no_folder_selected">Ceann ar bith</string>
     <string name="account_settings_automatic_special_folder">Uathoibríoch (%s)</string>
     <string name="font_size_settings_title">Clómhéid</string>
@@ -826,7 +824,7 @@
     <string name="settings_ui_data_collection">Bailiú sonraí</string>
     <string name="settings_ui_telemetry_title">Úsáid agus sonraí teicniúla</string>
     <string name="settings_ui_telemetry_description">Scaireanna feidhmíocht, úsáid, crua-earraí agus sonraí saincheaptha faoin app seo le Mozilla chun cabhrú linn a dhéanamh Thunderbird níos fearr</string>
-    <string name="account_delete_dlg_instructions_fmt">Bainfear an cuntas \"<xliff:g id="account">%s</xliff:g>\" de <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">Bainfear an cuntas \"<xliff:g id="account">%1$s</xliff:g>\" de <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="message_compose_reply_header_fmt_with_date">Ar <xliff:g id="sent_date">%1$s</xliff:g>, scríobh <xliff:g id="sender">%2$s</xliff:g>:</string>
     <plurals name="dialog_confirm_spam_message">
         <item quantity="one">Ar mhaith leat an teachtaireacht seo a bhogadh go dtí an fillteán turscair?</item>
@@ -846,4 +844,8 @@
     <string name="volume_navigation_title_short">Nascleanúint eochair toirte</string>
     <string name="save_attachment_action">Sábháil ceangaltán</string>
     <string name="volume_navigation_summary">Déan nascleanúint idir teachtaireachtaí ag baint úsáide as na heochracha toirte i radharc na teachtaireachta</string>
+    <string name="expand_content_description">Leathnaigh</string>
+    <string name="empty_spam_action">Spam Folamh</string>
+    <string name="dialog_confirm_empty_spam_title">Deimhnigh turscar folamh</string>
+    <string name="dialog_confirm_empty_spam_message">Ar mhaith leat an fillteán turscair a fholmhú?</string>
 </resources>

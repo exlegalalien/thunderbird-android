@@ -197,7 +197,7 @@
     <string name="global_settings_registered_name_color_changed">Färglägg namn i din kontaktlista</string>
     <string name="general_settings_contact_name_color_label">Färg på kontaktnamn</string>
     <string name="global_settings_messageview_fixedwidth_label">Teckensnitt med fast bredd</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Använd ett teckensnitt med fast bredd när meddelanden med enbart oformaterad text visas</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Använd ett teckensnitt med fast bredd när du visar oformaterade textmeddelanden</string>
     <string name="global_settings_messageview_autofit_width_label">Anpassa automatiskt meddelanden</string>
     <string name="global_settings_messageview_autofit_width_summary">Krymp meddelanden så att de får plats på skärmen</string>
     <string name="global_settings_confirm_actions_title">Bekräfta åtgärder</string>
@@ -236,10 +236,10 @@
     <string name="general_settings_ui_density_default">Standard</string>
     <string name="general_settings_ui_density_relaxed">Avslappnad</string>
     <string name="global_settings_privacy_hide_useragent">Dölj e-postklient</string>
-    <string name="global_settings_privacy_hide_useragent_detail">Ta bort K-9-användaragent från meddelanderubriker</string>
+    <string name="global_settings_privacy_hide_useragent_detail">Ta bort användaragent från meddelanderubriker</string>
     <string name="global_settings_privacy_hide_timezone">Dölj tidszon</string>
     <string name="global_settings_privacy_hide_timezone_detail">Använd UTC istället för lokal tidszon i postrubriker och svarsrubrik</string>
-    <string name="global_settings_notification_quick_delete_title">Visa knappen \"Ta bort\"</string>
+    <string name="global_settings_notification_quick_delete_title">Visa knappen \'Ta bort\'</string>
     <string name="global_settings_notification_quick_delete_never">Aldrig</string>
     <string name="global_settings_notification_quick_delete_when_single_msg">För enstaka meddelandeavisering</string>
     <string name="global_settings_notification_quick_delete_always">Alltid</string>
@@ -397,7 +397,6 @@
     <string name="account_settings_openpgp_missing">Saknade OpenPGP-app - har den avinstallerats?</string>
     <string name="folder_settings_title">Mappinställningar</string>
     <string name="folder_settings_in_top_group_label">Visa i toppgruppen</string>
-    <string name="folder_settings_in_top_group_summary">Visa nära toppen av mapplistan</string>
     <string name="folder_settings_clear_local_folder_action">Rensa lokalt lagrade meddelanden</string>
     <string name="account_settings_incoming_label">Inkommande server</string>
     <string name="account_settings_incoming_summary">Konfigurera servern för inkommande e-post</string>
@@ -491,7 +490,7 @@
     <string name="setting_theme_dark">Mörkt</string>
     <string name="setting_theme_light">Ljust</string>
     <string name="setting_theme_follow_system">Använd systemstandard</string>
-    <string name="display_preferences">Utseende</string>
+    <string name="display_preferences">Visning</string>
     <string name="global_preferences">Globala</string>
     <string name="debug_preferences">Felsökning</string>
     <string name="privacy_preferences">Integritet</string>
@@ -530,7 +529,6 @@
     <string name="integrated_inbox_title">Samlad inkorg</string>
     <string name="integrated_inbox_detail">Alla meddelanden i samlade mappar</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Förena</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Alla meddelanden visas i samlad inkorg</string>
     <string name="account_settings_no_folder_selected">Inga</string>
     <string name="account_settings_automatic_special_folder">Automatisk (%s)</string>
     <string name="font_size_settings_title">Teckenstorlek</string>
@@ -880,7 +878,7 @@ Du kan behålla detta meddelande och använda det som en säkerhetskopia för di
     <string name="push_notification_state_alarm_permission_missing">Saknar behörigheter för att schemalägga larm</string>
     <string name="push_notification_grant_alarm_permission">Tryck för att ge behörigheter.</string>
     <string name="dialog_openkeychain_info_text">Appen OpenKeychain krävs för att möjliggöra stöd för end-to-end-kryptering.</string>
-    <string name="account_delete_dlg_instructions_fmt">Kontot \"<xliff:g id="account">%s</xliff:g>\" kommer att tas bort ifrån <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">Kontot \"<xliff:g id="account">%1$s</xliff:g>\" kommer att tas bort ifrån <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="about_title">Om <xliff:g id="app_name">%s</xliff:g></string>
     <string name="about_app_authors_thunderbird">Thunderbird mobilteam</string>
     <string name="folder_settings_push_label">Aktivera pushnotiser</string>
@@ -896,4 +894,8 @@ Du kan behålla detta meddelande och använda det som en säkerhetskopia för di
     <string name="volume_navigation_summary">Navigera mellan meddelanden med volymknapparna i meddelandevyn</string>
     <string name="volume_navigation_title_short">Volymknappsnavigering</string>
     <string name="save_attachment_action">Spara bilaga</string>
+    <string name="expand_content_description">Expandera</string>
+    <string name="dialog_confirm_empty_spam_message">Vill du tömma skräppostmappen?</string>
+    <string name="empty_spam_action">Töm skräppost</string>
+    <string name="dialog_confirm_empty_spam_title">Bekräfta töm skräppost</string>
 </resources>

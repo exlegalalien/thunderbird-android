@@ -1,8 +1,9 @@
 package app.k9mail.feature.migration.qrcode.domain.entity
 
-import app.k9mail.core.common.mail.EmailAddress
-import app.k9mail.core.common.net.Hostname
-import app.k9mail.core.common.net.Port
+import net.thunderbird.core.android.account.DeletePolicy
+import net.thunderbird.core.common.mail.EmailAddress
+import net.thunderbird.core.common.net.Hostname
+import net.thunderbird.core.common.net.Port
 
 internal data class AccountData(
     val sequenceNumber: Int,
@@ -11,6 +12,7 @@ internal data class AccountData(
 ) {
     data class Account(
         val accountName: String,
+        val deletePolicy: DeletePolicy,
         val incomingServer: IncomingServer,
         val outgoingServerGroups: List<OutgoingServerGroup>,
     )

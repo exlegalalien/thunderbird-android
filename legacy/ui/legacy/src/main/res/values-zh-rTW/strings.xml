@@ -95,7 +95,7 @@
     <string name="status_network_error">網路連接錯誤</string>
     <string name="status_invalid_id_error">沒有找到郵件</string>
     <string name="status_loading_error">郵件載入錯誤</string>
-    <string name="load_more_messages_fmt">再載入<xliff:g id="messages_to_load">%d</xliff:g>封郵件</string>
+    <string name="load_more_messages_fmt">再載入 <xliff:g id="messages_to_load">%d</xliff:g> 封郵件</string>
     <string name="size_format_gigabytes">%.1fGB</string>
     <string name="size_format_megabytes">%.1fMB</string>
     <string name="size_format_kilobytes">%.1fkB</string>
@@ -194,7 +194,7 @@
     <string name="global_settings_registered_name_color_changed">使用顏色標示聯絡人列表</string>
     <string name="general_settings_contact_name_color_label">聯絡人名稱顏色</string>
     <string name="global_settings_messageview_fixedwidth_label">固定寬度字體</string>
-    <string name="global_settings_messageview_fixedwidth_summary">使用固定寬度字體顯示純文字郵件</string>
+    <string name="global_settings_messageview_fixedwidth_summary">顯示純文字訊息時使用等寬字體</string>
     <string name="global_settings_messageview_autofit_width_label">自動調整訊息</string>
     <string name="global_settings_messageview_autofit_width_summary">調整訊息內容符合螢幕大小</string>
     <string name="global_settings_confirm_actions_title">確認操作</string>
@@ -394,7 +394,6 @@
     <string name="account_settings_openpgp_missing">未發現 OpenPGP 應用程式 - 它已被解除安裝了嗎？</string>
     <string name="folder_settings_title">信件匣設定</string>
     <string name="folder_settings_in_top_group_label">顯示在置頂的組中</string>
-    <string name="folder_settings_in_top_group_summary">顯示在置頂的組之後</string>
     <string name="folder_settings_clear_local_folder_action">清除本地郵件</string>
     <string name="account_settings_incoming_label">內送伺服器</string>
     <string name="account_settings_incoming_summary">設定內送伺服器</string>
@@ -527,7 +526,6 @@
     <string name="integrated_inbox_title">統一收件匣</string>
     <string name="integrated_inbox_detail">統一資料夾中的所有訊息</string>
     <string name="folder_settings_include_in_integrated_inbox_label">統一</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">所有訊息都會顯示在統一收件匣中</string>
     <string name="account_settings_no_folder_selected">無</string>
     <string name="account_settings_automatic_special_folder">自動 (%s)</string>
     <string name="font_size_settings_title">字體大小</string>
@@ -875,10 +873,22 @@
     <string name="about_app_authors_thunderbird">Thunderbird Mobile Team</string>
     <string name="push_info_notification_explanation_text">使用推送時，<xliff:g id="app_name">%1$s</xliff:g> 會保持與郵件伺服器的連接。當應用程式在背景中運行時，Android 需要顯示持續通知。<xliff:g id="optional_extended_explanation">%2$s</xliff:g></string>
     <string name="dialog_openkeychain_info_text">需要安裝 OpenKeychain 應用程式以支援端到端加密。</string>
-    <string name="account_delete_dlg_instructions_fmt">帳戶 \"<xliff:g id="account">%s</xliff:g>\" 將從 <xliff:g id="app_name">%s</xliff:g> 中移除。</string>
+    <string name="account_delete_dlg_instructions_fmt">帳戶 \"<xliff:g id="account">%1$s</xliff:g>\" 將從 <xliff:g id="app_name">%2$s</xliff:g> 中移除。</string>
     <string name="about_title">關於 <xliff:g id="app_name">%s</xliff:g></string>
     <string name="settings_ui_data_collection">數據收集</string>
     <string name="folder_settings_notifications_label">通知</string>
     <string name="settings_ui_telemetry_title">使用和技術數據</string>
     <string name="settings_ui_telemetry_description">將關於此應用程式的效能、使用情況、硬體及自訂數據與 Mozilla 共享，以幫助我們改進 Thunderbird</string>
+    <string name="volume_navigation_title_short">音量鍵導航</string>
+    <string name="save_attachment_action">儲存附件</string>
+    <string name="volume_navigation_summary">在訊息檢視中使用音量鍵在訊息之間導航</string>
+    <string name="folder_settings_push_label">啟用推送</string>
+    <string name="folder_settings_visible_label">顯示資料夾</string>
+    <string name="folder_settings_sync_label">啟用同步</string>
+    <string name="folder_list_show_hidden_folders">顯示已隱藏資料夾</string>
+    <string name="settings_list_action_support">支援 <xliff:g id="app_name">%s</xliff:g></string>
+    <string name="empty_spam_action">清空垃圾郵件</string>
+    <string name="dialog_confirm_empty_spam_title">確認清空垃圾郵件</string>
+    <string name="dialog_confirm_empty_spam_message">您想清空垃圾郵件資料夾嗎？</string>
+    <string name="expand_content_description">展開</string>
 </resources>

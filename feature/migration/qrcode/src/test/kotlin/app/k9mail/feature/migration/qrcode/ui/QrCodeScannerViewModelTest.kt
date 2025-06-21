@@ -1,13 +1,17 @@
 package app.k9mail.feature.migration.qrcode.ui
 
 import android.app.Application
-import app.k9mail.core.ui.compose.testing.MainDispatcherRule
 import app.k9mail.core.ui.compose.testing.mvi.MviContext
 import app.k9mail.core.ui.compose.testing.mvi.MviTurbines
 import app.k9mail.core.ui.compose.testing.mvi.runMviTest
 import app.k9mail.core.ui.compose.testing.mvi.turbinesWithInitialStateCheck
 import app.k9mail.feature.migration.qrcode.domain.QrCodeDomainContract.UseCase
 import app.k9mail.feature.migration.qrcode.domain.usecase.QrCodePayloadReader
+import app.k9mail.feature.migration.qrcode.payload.FakeDeletePolicyProvider
+import app.k9mail.feature.migration.qrcode.payload.QrCodePayloadAdapter
+import app.k9mail.feature.migration.qrcode.payload.QrCodePayloadMapper
+import app.k9mail.feature.migration.qrcode.payload.QrCodePayloadParser
+import app.k9mail.feature.migration.qrcode.payload.QrCodePayloadValidator
 import app.k9mail.feature.migration.qrcode.ui.QrCodeScannerContract.DisplayText
 import app.k9mail.feature.migration.qrcode.ui.QrCodeScannerContract.Effect
 import app.k9mail.feature.migration.qrcode.ui.QrCodeScannerContract.Event
@@ -20,6 +24,7 @@ import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import kotlinx.coroutines.Dispatchers
+import net.thunderbird.core.testing.coroutines.MainDispatcherRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -135,7 +140,13 @@ private class QrCodeScannerScreenRobot(
 ) {
     private val qrCodeSettingsWriter = FakeQrCodeSettingsWriter()
     private val viewModel = QrCodeScannerViewModel(
-        qrCodePayloadReader = QrCodePayloadReader(),
+        qrCodePayloadReader = QrCodePayloadReader(
+            parser = QrCodePayloadParser(QrCodePayloadAdapter()),
+            mapper = QrCodePayloadMapper(
+                qrCodePayloadValidator = QrCodePayloadValidator(),
+                deletePolicyProvider = FakeDeletePolicyProvider(),
+            ),
+        ),
         qrCodeSettingsWriter = qrCodeSettingsWriter,
         createCameraUseCaseProvider = { listener ->
             qrCodeListener = listener

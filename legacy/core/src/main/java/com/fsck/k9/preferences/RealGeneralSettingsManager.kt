@@ -2,11 +2,6 @@
 
 package com.fsck.k9.preferences
 
-import app.k9mail.legacy.preferences.AppTheme
-import app.k9mail.legacy.preferences.BackgroundSync
-import app.k9mail.legacy.preferences.GeneralSettings
-import app.k9mail.legacy.preferences.GeneralSettingsManager
-import app.k9mail.legacy.preferences.SubTheme
 import com.fsck.k9.K9
 import com.fsck.k9.Preferences
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,7 +11,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import net.thunderbird.core.logging.legacy.Log
+import net.thunderbird.core.preference.AppTheme
+import net.thunderbird.core.preference.BackgroundSync
+import net.thunderbird.core.preference.GeneralSettings
+import net.thunderbird.core.preference.GeneralSettingsManager
+import net.thunderbird.core.preference.PreferenceChangePublisher
+import net.thunderbird.core.preference.SubTheme
+import net.thunderbird.core.preference.storage.Storage
+import net.thunderbird.core.preference.storage.StorageEditor
+import net.thunderbird.core.preference.storage.getEnumOrDefault
+import net.thunderbird.core.preference.storage.putEnum
+
+internal const val KEY_SHOULD_SHOW_SETUP_ARCHIVE_FOLDER_DIALOG = "shouldShowSetupArchiveFolderDialog"
 
 /**
  * Retrieve and modify general settings.
@@ -30,6 +37,7 @@ import timber.log.Timber
 internal class RealGeneralSettingsManager(
     private val preferences: Preferences,
     private val coroutineScope: CoroutineScope,
+    private val changePublisher: PreferenceChangePublisher,
     private val backgroundDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : GeneralSettingsManager {
     private val settingsFlow = MutableSharedFlow<GeneralSettings>(replay = 1)
@@ -88,6 +96,8 @@ internal class RealGeneralSettingsManager(
         K9.save(editor)
         writeSettings(editor, settings)
         editor.commit()
+
+        changePublisher.publish()
     }
 
     @Synchronized
@@ -128,12 +138,53 @@ internal class RealGeneralSettingsManager(
         getSettings().copy(fixedMessageViewTheme = fixedMessageViewTheme).persist()
     }
 
+    override fun setIsShowUnifiedInbox(isShowUnifiedInbox: Boolean) {
+        getSettings().copy(isShowUnifiedInbox = isShowUnifiedInbox).persist()
+    }
+
+    override fun setIsShowStarredCount(isShowStarredCount: Boolean) {
+        getSettings().copy(isShowStarredCount = isShowStarredCount).persist()
+    }
+
+    override fun setIsShowMessageListStars(isShowMessageListStars: Boolean) {
+        getSettings().copy(isShowMessageListStars = isShowMessageListStars).persist()
+    }
+
+    override fun setIsShowAnimations(isShowAnimations: Boolean) {
+        getSettings().copy(isShowAnimations = isShowAnimations).persist()
+    }
+
+    override fun setIsShowCorrespondentNames(isShowCorrespondentNames: Boolean) {
+        getSettings().copy(isShowCorrespondentNames = isShowCorrespondentNames).persist()
+    }
+
+    @Synchronized
+    override fun setSetupArchiveShouldNotShowAgain(shouldShowSetupArchiveFolderDialog: Boolean) {
+        getSettings().copy(shouldShowSetupArchiveFolderDialog = shouldShowSetupArchiveFolderDialog).persist()
+    }
+
+    override fun setIsMessageListSenderAboveSubject(isMessageListSenderAboveSubject: Boolean) {
+        getSettings().copy(isMessageListSenderAboveSubject = isMessageListSenderAboveSubject).persist()
+    }
+
+    override fun setIsShowContactName(isShowContactName: Boolean) {
+        getSettings().copy(isShowContactName = isShowContactName).persist()
+    }
+
     private fun writeSettings(editor: StorageEditor, settings: GeneralSettings) {
         editor.putBoolean("showRecentChanges", settings.showRecentChanges)
         editor.putEnum("theme", settings.appTheme)
         editor.putEnum("messageViewTheme", settings.messageViewTheme)
         editor.putEnum("messageComposeTheme", settings.messageComposeTheme)
         editor.putBoolean("fixedMessageViewTheme", settings.fixedMessageViewTheme)
+        editor.putBoolean("showUnifiedInbox", settings.isShowUnifiedInbox)
+        editor.putBoolean("showStarredCount", settings.isShowStarredCount)
+        editor.putBoolean("messageListStars", settings.isShowMessageListStars)
+        editor.putBoolean("animations", settings.isShowAnimations)
+        editor.putBoolean("showCorrespondentNames", settings.isShowCorrespondentNames)
+        editor.putBoolean(KEY_SHOULD_SHOW_SETUP_ARCHIVE_FOLDER_DIALOG, settings.shouldShowSetupArchiveFolderDialog)
+        editor.putBoolean("messageListSenderAboveSubject", settings.isMessageListSenderAboveSubject)
+        editor.putBoolean("showContactName", settings.isShowContactName)
     }
 
     private fun loadGeneralSettings(): GeneralSettings {
@@ -143,9 +194,26 @@ internal class RealGeneralSettingsManager(
             backgroundSync = K9.backgroundOps.toBackgroundSync(),
             showRecentChanges = storage.getBoolean("showRecentChanges", true),
             appTheme = storage.getEnum("theme", AppTheme.FOLLOW_SYSTEM),
-            messageViewTheme = storage.getEnum("messageViewTheme", SubTheme.USE_GLOBAL),
-            messageComposeTheme = storage.getEnum("messageComposeTheme", SubTheme.USE_GLOBAL),
+            messageViewTheme = storage.getEnum(
+                "messageViewTheme",
+                SubTheme.USE_GLOBAL,
+            ),
+            messageComposeTheme = storage.getEnum(
+                "messageComposeTheme",
+                SubTheme.USE_GLOBAL,
+            ),
             fixedMessageViewTheme = storage.getBoolean("fixedMessageViewTheme", true),
+            isShowUnifiedInbox = storage.getBoolean("showUnifiedInbox", false),
+            isShowStarredCount = storage.getBoolean("showStarredCount", false),
+            isShowMessageListStars = storage.getBoolean("messageListStars", true),
+            isShowAnimations = storage.getBoolean("animations", true),
+            isShowCorrespondentNames = storage.getBoolean("showCorrespondentNames", true),
+            shouldShowSetupArchiveFolderDialog = storage.getBoolean(
+                key = KEY_SHOULD_SHOW_SETUP_ARCHIVE_FOLDER_DIALOG,
+                defValue = true,
+            ),
+            isMessageListSenderAboveSubject = storage.getBoolean("messageListSenderAboveSubject", false),
+            isShowContactName = storage.getBoolean("showContactName", false),
         )
 
         updateSettingsFlow(settings)
@@ -164,18 +232,9 @@ private fun K9.BACKGROUND_OPS.toBackgroundSync(): BackgroundSync {
 
 private inline fun <reified T : Enum<T>> Storage.getEnum(key: String, defaultValue: T): T {
     return try {
-        val value = getString(key, null)
-        if (value != null) {
-            enumValueOf(value)
-        } else {
-            defaultValue
-        }
+        getEnumOrDefault(key, defaultValue)
     } catch (e: Exception) {
-        Timber.e("Couldn't read setting '%s'. Using default value instead.", key)
+        Log.e(e, "Couldn't read setting '%s'. Using default value instead.", key)
         defaultValue
     }
-}
-
-private fun <T : Enum<T>> StorageEditor.putEnum(key: String, value: T) {
-    putString(key, value.name)
 }

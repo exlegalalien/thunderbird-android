@@ -1,28 +1,28 @@
 package com.fsck.k9.storage.messages
 
-import app.k9mail.core.mail.folder.api.FolderDetails
 import app.k9mail.legacy.mailstore.CreateFolderInfo
 import app.k9mail.legacy.mailstore.FolderMapper
 import app.k9mail.legacy.mailstore.MessageMapper
 import app.k9mail.legacy.mailstore.MessageStore
 import app.k9mail.legacy.mailstore.MoreMessages
 import app.k9mail.legacy.mailstore.SaveMessageData
-import app.k9mail.legacy.search.ConditionsTreeNode
 import com.fsck.k9.mail.Flag
 import com.fsck.k9.mail.FolderType
 import com.fsck.k9.mail.Header
+import com.fsck.k9.mail.MessagingException
 import com.fsck.k9.mailstore.LockableDatabase
-import com.fsck.k9.mailstore.StorageManager
+import com.fsck.k9.mailstore.StorageFilesProvider
 import com.fsck.k9.message.extractors.BasicPartInfoExtractor
 import java.util.Date
+import net.thunderbird.feature.mail.folder.api.FolderDetails
+import net.thunderbird.feature.search.ConditionsTreeNode
 
 class K9MessageStore(
     database: LockableDatabase,
-    storageManager: StorageManager,
+    storageFilesProvider: StorageFilesProvider,
     basicPartInfoExtractor: BasicPartInfoExtractor,
-    accountUuid: String,
 ) : MessageStore {
-    private val attachmentFileManager = AttachmentFileManager(storageManager, accountUuid)
+    private val attachmentFileManager = AttachmentFileManager(storageFilesProvider)
     private val threadMessageOperations = ThreadMessageOperations()
     private val saveMessageOperations = SaveMessageOperations(
         database,
@@ -43,7 +43,7 @@ class K9MessageStore(
     private val updateFolderOperations = UpdateFolderOperations(database)
     private val deleteFolderOperations = DeleteFolderOperations(database, attachmentFileManager)
     private val keyValueStoreOperations = KeyValueStoreOperations(database)
-    private val databaseOperations = DatabaseOperations(database, storageManager, accountUuid)
+    private val databaseOperations = DatabaseOperations(database, storageFilesProvider)
 
     override fun saveRemoteMessage(folderId: Long, messageServerId: String, messageData: SaveMessageData) {
         saveMessageOperations.saveRemoteMessage(folderId, messageServerId, messageData)
@@ -139,9 +139,9 @@ class K9MessageStore(
         deleteMessageOperations.destroyMessages(folderId, messageServerIds)
     }
 
-    override fun createFolders(folders: List<CreateFolderInfo>) {
+    @Throws(MessagingException::class)
+    override fun createFolders(folders: List<CreateFolderInfo>): Set<Long> =
         createFolderOperations.createFolders(folders)
-    }
 
     override fun <T> getFolder(folderId: Long, mapper: FolderMapper<T>): T? {
         return retrieveFolderOperations.getFolder(folderId, mapper)

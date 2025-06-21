@@ -1,11 +1,11 @@
 package com.fsck.k9.activity
 
-import app.k9mail.legacy.preferences.AppTheme
-import app.k9mail.legacy.preferences.GeneralSettingsManager
-import app.k9mail.legacy.preferences.SubTheme
 import com.fsck.k9.K9
-import com.fsck.k9.SwipeAction
 import com.fsck.k9.UiDensity
+import net.thunderbird.core.common.action.SwipeAction
+import net.thunderbird.core.preference.AppTheme
+import net.thunderbird.core.preference.GeneralSettingsManager
+import net.thunderbird.core.preference.SubTheme
 
 data class MessageListActivityConfig(
     val appTheme: AppTheme,
@@ -35,18 +35,21 @@ data class MessageListActivityConfig(
     val fontSizeMessageViewContentAsPercent: Int,
     val swipeRightAction: SwipeAction,
     val swipeLeftAction: SwipeAction,
+    val generalSettingsManager: GeneralSettingsManager,
 ) {
 
     companion object {
-        fun create(generalSettingsManager: GeneralSettingsManager): MessageListActivityConfig {
+        fun create(
+            generalSettingsManager: GeneralSettingsManager,
+        ): MessageListActivityConfig {
             val settings = generalSettingsManager.getSettings()
             return MessageListActivityConfig(
                 appTheme = settings.appTheme,
-                isShowUnifiedInbox = K9.isShowUnifiedInbox,
-                isShowMessageListStars = K9.isShowMessageListStars,
-                isShowCorrespondentNames = K9.isShowCorrespondentNames,
-                isMessageListSenderAboveSubject = K9.isMessageListSenderAboveSubject,
-                isShowContactName = K9.isShowContactName,
+                isShowUnifiedInbox = generalSettingsManager.getSettings().isShowUnifiedInbox,
+                isShowMessageListStars = generalSettingsManager.getSettings().isShowMessageListStars,
+                isShowCorrespondentNames = generalSettingsManager.getSettings().isShowCorrespondentNames,
+                isMessageListSenderAboveSubject = generalSettingsManager.getSettings().isMessageListSenderAboveSubject,
+                isShowContactName = generalSettingsManager.getSettings().isShowContactName,
                 isChangeContactNameColor = K9.isChangeContactNameColor,
                 isShowContactPicture = K9.isShowContactPicture,
                 isColorizeMissingContactPictures = K9.isColorizeMissingContactPictures,
@@ -68,6 +71,7 @@ data class MessageListActivityConfig(
                 fontSizeMessageViewContentAsPercent = K9.fontSizes.messageViewContentAsPercent,
                 swipeRightAction = K9.swipeRightAction,
                 swipeLeftAction = K9.swipeLeftAction,
+                generalSettingsManager = generalSettingsManager,
             )
         }
     }

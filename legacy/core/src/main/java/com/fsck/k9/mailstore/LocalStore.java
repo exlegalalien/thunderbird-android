@@ -24,9 +24,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
-
 import androidx.core.database.CursorKt;
-import app.k9mail.legacy.account.Account;
 import app.k9mail.legacy.di.DI;
 import app.k9mail.legacy.mailstore.MessageListRepository;
 import app.k9mail.legacy.mailstore.MoreMessages;
@@ -46,19 +44,19 @@ import com.fsck.k9.mail.Part;
 import com.fsck.k9.mailstore.LocalFolder.DataLocation;
 import com.fsck.k9.mailstore.LockableDatabase.DbCallback;
 import com.fsck.k9.mailstore.LockableDatabase.SchemaDefinition;
-import com.fsck.k9.mailstore.StorageManager.InternalStorageProvider;
 import com.fsck.k9.message.extractors.AttachmentInfoExtractor;
-import app.k9mail.legacy.search.LocalSearch;
-import app.k9mail.legacy.search.api.SearchAttribute;
-import app.k9mail.legacy.search.api.SearchField;
 import com.fsck.k9.search.SqlQueryBuilder;
 import kotlinx.datetime.Clock;
+import net.thunderbird.core.android.account.LegacyAccount;
+import net.thunderbird.feature.search.LocalSearch;
+import net.thunderbird.feature.search.api.SearchAttribute;
+import net.thunderbird.feature.search.api.SearchField;
 import org.apache.commons.io.IOUtils;
 import org.apache.james.mime4j.codec.Base64InputStream;
 import org.apache.james.mime4j.codec.QuotedPrintableInputStream;
 import org.apache.james.mime4j.util.MimeUtil;
 import org.openintents.openpgp.util.OpenPgpApi.OpenPgpDataSource;
-import timber.log.Timber;
+import net.thunderbird.core.logging.legacy.Log;
 
 /**
  * <pre>
@@ -160,27 +158,27 @@ public class LocalStore {
      */
     private static final int THREAD_FLAG_UPDATE_BATCH_SIZE = 500;
 
-    private final Context context;
     private final PendingCommandSerializer pendingCommandSerializer;
     private final AttachmentInfoExtractor attachmentInfoExtractor;
+    private final StorageFilesProvider storageFilesProvider;
 
-    private final Account account;
+    private final LegacyAccount account;
     private final LockableDatabase database;
     private final OutboxStateRepository outboxStateRepository;
 
-    static LocalStore createInstance(Account account, Context context) throws MessagingException {
+    static LocalStore createInstance(LegacyAccount account, Context context) throws MessagingException {
         return new LocalStore(account, context);
     }
 
     /**
      * local://localhost/path/to/database/uuid.db
-     * This constructor is only used by {@link LocalStoreProvider#getInstance(Account)}
+     * This constructor is only used by {@link LocalStoreProvider#getInstance(LegacyAccount)}
      */
-    private LocalStore(final Account account, final Context context) throws MessagingException {
-        this.context = context;
-
+    private LocalStore(final LegacyAccount account, final Context context) throws MessagingException {
         pendingCommandSerializer = PendingCommandSerializer.getInstance();
         attachmentInfoExtractor = DI.get(AttachmentInfoExtractor.class);
+        StorageFilesProviderFactory storageFilesProviderFactory = DI.get(StorageFilesProviderFactory.class);
+        storageFilesProvider = storageFilesProviderFactory.createStorageFilesProvider(account.getUuid());
 
         this.account = account;
 
@@ -188,22 +186,11 @@ public class LocalStore {
         RealMigrationsHelper migrationsHelper = new RealMigrationsHelper();
         SchemaDefinition schemaDefinition = schemaDefinitionFactory.createSchemaDefinition(migrationsHelper);
 
-        database = new LockableDatabase(context, account.getUuid(), schemaDefinition);
-        database.setStorageProviderId(account.getLocalStorageProviderId());
+        database = new LockableDatabase(context, storageFilesProvider, schemaDefinition);
         database.open();
 
         Clock clock = DI.get(Clock.class);
         outboxStateRepository = new OutboxStateRepository(database, clock);
-
-        // If "External storage" is selected as storage location, move database to internal storage
-        //TODO: Remove this code after 2020-12-31.
-        // If the database is still on external storage after this date, we'll just ignore it and create a new one on
-        // internal storage.
-        if (!InternalStorageProvider.ID.equals(account.getLocalStorageProviderId())) {
-            switchLocalStorage(InternalStorageProvider.ID);
-            account.setLocalStorageProviderId(InternalStorageProvider.ID);
-            getPreferences().saveAccount(account);
-        }
     }
 
     public static int getDbVersion() {
@@ -211,11 +198,7 @@ public class LocalStore {
         return schemaDefinitionFactory.getDatabaseVersion();
     }
 
-    public void switchLocalStorage(final String newStorageProviderId) throws MessagingException {
-        database.switchProvider(newStorageProviderId);
-    }
-
-    Account getAccount() {
+    LegacyAccount getAccount() {
         return account;
     }
 
@@ -370,7 +353,7 @@ public class LocalStore {
                 ((!TextUtils.isEmpty(where)) ? " AND (" + where + ")" : "") +
                 " ORDER BY date DESC";
 
-        Timber.d("Query = %s", sqlQuery);
+        Log.d("Query = %s", sqlQuery);
 
         return getMessages(null, sqlQuery, selectionArgs);
     }
@@ -405,7 +388,7 @@ public class LocalStore {
                         messages.add(message);
                     }
                 } catch (Exception e) {
-                    Timber.d(e, "Got an exception");
+                    Log.d(e, "Got an exception");
                 } finally {
                     Utility.closeQuietly(cursor);
                 }
@@ -665,9 +648,7 @@ public class LocalStore {
     }
 
     File getAttachmentFile(String attachmentId) {
-        final StorageManager storageManager = StorageManager.getInstance(context);
-        final File attachmentDirectory = storageManager.getAttachmentDirectory(
-                account.getUuid(), database.getStorageProviderId());
+        File attachmentDirectory = storageFilesProvider.getAttachmentDirectory();
         return new File(attachmentDirectory, attachmentId);
     }
 
@@ -1055,7 +1036,7 @@ public class LocalStore {
 
     class RealMigrationsHelper implements MigrationsHelper {
         @Override
-        public Account getAccount() {
+        public LegacyAccount getAccount() {
             return LocalStore.this.getAccount();
         }
 

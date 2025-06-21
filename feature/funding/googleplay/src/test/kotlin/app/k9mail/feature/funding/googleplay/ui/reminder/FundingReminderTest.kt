@@ -5,24 +5,26 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.testing.TestLifecycleOwner
-import app.k9mail.core.testing.TestClock
 import app.k9mail.feature.funding.api.FundingSettings
-import app.k9mail.feature.funding.googleplay.ui.reminder.FundingReminderContract.Dialog
 import app.k9mail.feature.funding.googleplay.ui.reminder.FundingReminderContract.ActivityLifecycleObserver
+import app.k9mail.feature.funding.googleplay.ui.reminder.FundingReminderContract.Dialog
 import app.k9mail.feature.funding.googleplay.ui.reminder.FundingReminderContract.FragmentLifecycleObserver
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
-import assertk.assertions.isNotEqualTo
 import assertk.assertions.isTrue
 import kotlin.test.Test
 import kotlinx.datetime.Instant
+import net.thunderbird.core.testing.TestClock
+import net.thunderbird.core.testing.coroutines.MainDispatcherRule
+import org.junit.Rule
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
 
 class FundingReminderTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Test
     fun `should set reference timestamp when not set`() {
@@ -170,4 +172,3 @@ class FundingReminderTest {
         const val FUNDING_REMINDER_MIN_ACTIVITY_MILLIS = 30 * 60 * 1000L
     }
 }
-

@@ -1,13 +1,14 @@
 package app.k9mail.feature.migration.qrcode.settings
 
-import app.k9mail.core.common.mail.toUserEmailAddress
-import app.k9mail.core.common.net.toHostname
-import app.k9mail.core.common.net.toPort
 import app.k9mail.feature.migration.qrcode.domain.entity.AccountData
 import app.k9mail.feature.migration.qrcode.domain.entity.AccountData.ConnectionSecurity
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlin.test.Test
+import net.thunderbird.core.android.account.DeletePolicy
+import net.thunderbird.core.common.mail.toUserEmailAddress
+import net.thunderbird.core.common.net.toHostname
+import net.thunderbird.core.common.net.toPort
 import okio.Buffer
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -36,6 +37,7 @@ class XmlSettingWriterTest {
     companion object {
         private val ACCOUNT = AccountData.Account(
             accountName = "Account name",
+            deletePolicy = DeletePolicy.ON_DELETE,
             incomingServer = AccountData.IncomingServer(
                 protocol = AccountData.IncomingServerProtocol.Imap,
                 hostname = "imap.domain.example".toHostname(),
@@ -73,6 +75,9 @@ class XmlSettingWriterTest {
               <accounts>
                 <account uuid="test-uuid">
                   <name>Account name</name>
+                  <settings>
+                    <value key="deletePolicy">DELETE</value>
+                  </settings>
                   <incoming-server type="IMAP">
                     <host>imap.domain.example</host>
                     <port>993</port>

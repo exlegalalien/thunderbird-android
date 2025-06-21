@@ -11,6 +11,7 @@ import com.fsck.k9.mailstore.SaveMessageDataCreator
 import com.fsck.k9.mailstore.SpecialLocalFoldersCreator
 import com.fsck.k9.notification.NotificationController
 import com.fsck.k9.notification.NotificationStrategy
+import net.thunderbird.core.featureflag.FeatureFlagProvider
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -28,6 +29,7 @@ val controllerModule = module {
             get<SpecialLocalFoldersCreator>(),
             get<LocalDeleteOperationDecider>(),
             get(named("controllerExtensions")),
+            get<FeatureFlagProvider>(),
         )
     }
 
@@ -37,6 +39,7 @@ val controllerModule = module {
         DefaultMessageCountsProvider(
             accountManager = get(),
             messageStoreManager = get(),
+            messagingControllerRegistry = get(),
         )
     }
 

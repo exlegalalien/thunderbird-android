@@ -2,16 +2,16 @@ package com.fsck.k9.ui.settings.general
 
 import androidx.preference.PreferenceDataStore
 import app.k9mail.feature.telemetry.api.TelemetryManager
-import app.k9mail.legacy.preferences.AppTheme
-import app.k9mail.legacy.preferences.GeneralSettingsManager
-import app.k9mail.legacy.preferences.SubTheme
 import com.fsck.k9.K9
 import com.fsck.k9.K9.PostMarkAsUnreadNavigation
 import com.fsck.k9.K9.PostRemoveNavigation
-import com.fsck.k9.SwipeAction
 import com.fsck.k9.UiDensity
 import com.fsck.k9.job.K9JobManager
 import com.fsck.k9.ui.base.AppLanguageManager
+import net.thunderbird.core.common.action.SwipeAction
+import net.thunderbird.core.preference.AppTheme
+import net.thunderbird.core.preference.GeneralSettingsManager
+import net.thunderbird.core.preference.SubTheme
 
 class GeneralSettingsDataStore(
     private val jobManager: K9JobManager,
@@ -25,13 +25,13 @@ class GeneralSettingsDataStore(
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
         return when (key) {
             "fixed_message_view_theme" -> generalSettingsManager.getSettings().fixedMessageViewTheme
-            "animations" -> K9.isShowAnimations
-            "show_unified_inbox" -> K9.isShowUnifiedInbox
-            "show_starred_count" -> K9.isShowStarredCount
-            "messagelist_stars" -> K9.isShowMessageListStars
-            "messagelist_show_correspondent_names" -> K9.isShowCorrespondentNames
-            "messagelist_sender_above_subject" -> K9.isMessageListSenderAboveSubject
-            "messagelist_show_contact_name" -> K9.isShowContactName
+            "animations" -> generalSettingsManager.getSettings().isShowAnimations
+            "show_unified_inbox" -> generalSettingsManager.getSettings().isShowUnifiedInbox
+            "show_starred_count" -> generalSettingsManager.getSettings().isShowStarredCount
+            "messagelist_stars" -> generalSettingsManager.getSettings().isShowMessageListStars
+            "messagelist_show_correspondent_names" -> generalSettingsManager.getSettings().isShowCorrespondentNames
+            "messagelist_sender_above_subject" -> generalSettingsManager.getSettings().isMessageListSenderAboveSubject
+            "messagelist_show_contact_name" -> generalSettingsManager.getSettings().isShowContactName
             "messagelist_change_contact_name_color" -> K9.isChangeContactNameColor
             "messagelist_show_contact_picture" -> K9.isShowContactPicture
             "messagelist_colorize_missing_contact_pictures" -> K9.isColorizeMissingContactPictures
@@ -45,6 +45,7 @@ class GeneralSettingsDataStore(
             "privacy_hide_useragent" -> K9.isHideUserAgent
             "privacy_hide_timezone" -> K9.isHideTimeZone
             "debug_logging" -> K9.isDebugLoggingEnabled
+            "sync_debug_logging" -> K9.isSyncLoggingEnabled
             "sensitive_logging" -> K9.isSensitiveDebugLoggingEnabled
             "volume_navigation" -> K9.isUseVolumeKeysForNavigation
             "enable_telemetry" -> K9.isTelemetryEnabled
@@ -55,13 +56,15 @@ class GeneralSettingsDataStore(
     override fun putBoolean(key: String, value: Boolean) {
         when (key) {
             "fixed_message_view_theme" -> setFixedMessageViewTheme(value)
-            "animations" -> K9.isShowAnimations = value
-            "show_unified_inbox" -> K9.isShowUnifiedInbox = value
-            "show_starred_count" -> K9.isShowStarredCount = value
-            "messagelist_stars" -> K9.isShowMessageListStars = value
-            "messagelist_show_correspondent_names" -> K9.isShowCorrespondentNames = value
-            "messagelist_sender_above_subject" -> K9.isMessageListSenderAboveSubject = value
-            "messagelist_show_contact_name" -> K9.isShowContactName = value
+            "animations" -> setIsShowAnimations(isShowAnimations = value)
+            "show_unified_inbox" -> setIsShowUnifiedInbox(value)
+            "show_starred_count" -> setIsShowStarredCount(isShowStarredCount = value)
+            "messagelist_stars" -> setIsShowMessageListStars(isShowMessageListStars = value)
+            "messagelist_show_correspondent_names" -> setIsShowCorrespondentNames(isShowCorrespondentNames = value)
+            "messagelist_sender_above_subject" -> setIsMessageListSenderAboveSubject(
+                isMessageListSenderAboveSubject = value,
+            )
+            "messagelist_show_contact_name" -> setIsShowContactName(isShowContactName = value)
             "messagelist_change_contact_name_color" -> K9.isChangeContactNameColor = value
             "messagelist_show_contact_picture" -> K9.isShowContactPicture = value
             "messagelist_colorize_missing_contact_pictures" -> K9.isColorizeMissingContactPictures = value
@@ -75,6 +78,7 @@ class GeneralSettingsDataStore(
             "privacy_hide_useragent" -> K9.isHideUserAgent = value
             "privacy_hide_timezone" -> K9.isHideTimeZone = value
             "debug_logging" -> K9.isDebugLoggingEnabled = value
+            "sync_debug_logging" -> K9.isSyncLoggingEnabled = value
             "sensitive_logging" -> K9.isSensitiveDebugLoggingEnabled = value
             "volume_navigation" -> K9.isUseVolumeKeysForNavigation = value
             "enable_telemetry" -> setTelemetryEnabled(value)
@@ -147,9 +151,11 @@ class GeneralSettingsDataStore(
             "notification_quick_delete" -> {
                 K9.notificationQuickDeleteBehaviour = K9.NotificationQuickDelete.valueOf(value)
             }
+
             "lock_screen_notification_visibility" -> {
                 K9.lockScreenNotificationVisibility = K9.LockScreenNotificationVisibility.valueOf(value)
             }
+
             "background_ops" -> setBackgroundOps(value)
             "quiet_time_starts" -> K9.quietTimeStarts = value
             "quiet_time_ends" -> K9.quietTimeEnds = value
@@ -170,6 +176,7 @@ class GeneralSettingsDataStore(
             "post_mark_as_unread_navigation" -> {
                 K9.messageViewPostMarkAsUnreadNavigation = PostMarkAsUnreadNavigation.valueOf(value)
             }
+
             else -> return
         }
 
@@ -188,6 +195,7 @@ class GeneralSettingsDataStore(
                     if (K9.isConfirmMarkAllRead) add("mark_all_read")
                 }
             }
+
             "messageview_visible_refile_actions" -> {
                 mutableSetOf<String>().apply {
                     if (K9.isMessageViewDeleteActionVisible) add("delete")
@@ -197,6 +205,7 @@ class GeneralSettingsDataStore(
                     if (K9.isMessageViewSpamActionVisible) add("spam")
                 }
             }
+
             else -> defValues
         }
     }
@@ -212,6 +221,7 @@ class GeneralSettingsDataStore(
                 K9.isConfirmDiscardMessage = "discard" in checkedValues
                 K9.isConfirmMarkAllRead = "mark_all_read" in checkedValues
             }
+
             "messageview_visible_refile_actions" -> {
                 K9.isMessageViewDeleteActionVisible = "delete" in checkedValues
                 K9.isMessageViewArchiveActionVisible = "archive" in checkedValues
@@ -219,6 +229,7 @@ class GeneralSettingsDataStore(
                 K9.isMessageViewCopyActionVisible = "copy" in checkedValues
                 K9.isMessageViewSpamActionVisible = "spam" in checkedValues
             }
+
             else -> return
         }
 
@@ -251,6 +262,41 @@ class GeneralSettingsDataStore(
     private fun setFixedMessageViewTheme(fixedMessageViewTheme: Boolean) {
         skipSaveSettings = true
         generalSettingsManager.setFixedMessageViewTheme(fixedMessageViewTheme)
+    }
+
+    private fun setIsShowStarredCount(isShowStarredCount: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowStarredCount(isShowStarredCount)
+    }
+
+    private fun setIsShowUnifiedInbox(isShowUnifiedInbox: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowUnifiedInbox(isShowUnifiedInbox)
+    }
+
+    private fun setIsShowMessageListStars(isShowMessageListStars: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowMessageListStars(isShowMessageListStars)
+    }
+
+    private fun setIsShowAnimations(isShowAnimations: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowAnimations(isShowAnimations)
+    }
+
+    private fun setIsShowCorrespondentNames(isShowCorrespondentNames: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowCorrespondentNames(isShowCorrespondentNames)
+    }
+
+    private fun setIsMessageListSenderAboveSubject(isMessageListSenderAboveSubject: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsMessageListSenderAboveSubject(isMessageListSenderAboveSubject)
+    }
+
+    private fun setIsShowContactName(isShowContactName: Boolean) {
+        skipSaveSettings = true
+        generalSettingsManager.setIsShowContactName(isShowContactName)
     }
 
     private fun appThemeToString(theme: AppTheme) = when (theme) {
@@ -292,7 +338,7 @@ class GeneralSettingsDataStore(
         SwipeAction.ToggleSelection -> "toggle_selection"
         SwipeAction.ToggleRead -> "toggle_read"
         SwipeAction.ToggleStar -> "toggle_star"
-        SwipeAction.Archive -> "archive"
+        SwipeAction.Archive, SwipeAction.ArchiveDisabled, SwipeAction.ArchiveSetupArchiveFolder -> "archive"
         SwipeAction.Delete -> "delete"
         SwipeAction.Spam -> "spam"
         SwipeAction.Move -> "move"

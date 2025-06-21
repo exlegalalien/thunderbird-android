@@ -9,6 +9,8 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.android.account)
+    implementation(projects.legacy.common)
     implementation(projects.legacy.ui.base)
     implementation(projects.core.ui.compose.designsystem)
 
@@ -18,9 +20,9 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.moshi)
     implementation(libs.okio)
-    implementation(libs.timber)
     implementation(libs.zxing)
 
+    testImplementation(projects.core.logging.testing)
     testImplementation(projects.core.ui.compose.testing)
     testImplementation(projects.core.ui.compose.theme2.k9mail)
 }

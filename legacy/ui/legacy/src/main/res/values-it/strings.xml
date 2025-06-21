@@ -124,9 +124,7 @@
     <!--Title of an error notification that is displayed when creating a notification for a new message has failed-->
     <string name="notification_notify_error_title">Notifica errore</string>
     <!--Body of an error notification that is displayed when creating a notification for a new message has failed-->
-    <string name="notification_notify_error_text">Errore nella generazione di una notifica di ricezione di un nuovo messaggio. Errore probabilmente dovuto alla mancanza di un suono di notifica.
-\n
-\nTocca per le impostazioni di notifica.</string>
+    <string name="notification_notify_error_text">Errore nella generazione di una notifica di ricezione di un nuovo messaggio. Errore probabilmente dovuto alla mancanza di un suono di notifica. \n \nTocca per le impostazioni di notifica.</string>
     <string name="notification_bg_sync_ticker">Controllo posta: <xliff:g id="account">%1$s</xliff:g>:<xliff:g id="folder">%2$s</xliff:g></string>
     <string name="notification_bg_sync_title">Controllo posta</string>
     <string name="notification_bg_send_ticker">Invio posta: <xliff:g id="account">%s</xliff:g></string>
@@ -400,7 +398,6 @@
     <string name="account_settings_openpgp_missing">Applicazione OpenPGP non trovata, è stata disinstallata\?</string>
     <string name="folder_settings_title">Impostazioni cartella</string>
     <string name="folder_settings_in_top_group_label">Mostra in alto</string>
-    <string name="folder_settings_in_top_group_summary">Mostra nella parte superiore dell\'elenco delle cartelle</string>
     <string name="folder_settings_clear_local_folder_action">Pulisci messaggi locali</string>
     <string name="account_settings_incoming_label">Server posta in arrivo</string>
     <string name="account_settings_incoming_summary">Configura server della posta in arrivo</string>
@@ -533,7 +530,6 @@
     <string name="integrated_inbox_title">Posta combinata</string>
     <string name="integrated_inbox_detail">Tutti i messaggi in Posta combinata</string>
     <string name="folder_settings_include_in_integrated_inbox_label">Combina</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Tutti i messaggi sono visualizzati in Posta combinata</string>
     <string name="account_settings_no_folder_selected">Nessuna</string>
     <string name="account_settings_automatic_special_folder">Automatica (%s)</string>
     <string name="font_size_settings_title">Dimensione carattere</string>
@@ -696,8 +692,7 @@
     <string name="enable_sign_only">Abilita PGP solo firma</string>
     <string name="disable_sign_only">Disabilita PGP solo firma</string>
     <string name="openpgp_inline_title">Modalità PGP/INLINE</string>
-    <string name="openpgp_inline_text">Messaggio inviato nel formato PGP/INLINE.
-\nFormato da utilizzare solo per compatibilità:</string>
+    <string name="openpgp_inline_text">Messaggio inviato nel formato PGP/INLINE. \nFormato da utilizzare solo per compatibilità:</string>
     <string name="openpgp_inline_plus_compat">Alcuni client supportano solo questo formato</string>
     <string name="openpgp_inline_minus_transit">Le firme potrebbero danneggiarsi nel transito</string>
     <string name="openpgp_inline_minus_attach">Gli allegati non sono supportati</string>
@@ -759,8 +754,7 @@
     <string name="error_sign_only_no_encryption">Crittografia non disponibile in modalità solo firma!</string>
     <string name="unsigned_text_divider_label">Testo non firmato</string>
     <string name="crypto_no_provider_title">Questo messaggio è criptato</string>
-    <string name="crypto_no_provider_message">Questo messaggio è stato criptato con OpenPGP.
-\nPer leggerlo, devi installare e configurare un\'applicazione compatibile con OpenPGP.</string>
+    <string name="crypto_no_provider_message">Questo messaggio è stato criptato con OpenPGP. \nPer leggerlo, devi installare e configurare un\'applicazione compatibile con OpenPGP.</string>
     <string name="crypto_no_provider_button">Vai alle impostazioni</string>
     <!--Displayed in the the message list widget when the app hasn't had a chance to send content to it yet-->
     <!--Might be displayed in the message list widget when the list is scrolled and new data can't be fetched fast enough-->
@@ -887,7 +881,7 @@
     <string name="about_app_authors_thunderbird">Team di Thunderbird mobile</string>
     <string name="about_title">Informazioni su <xliff:g id="app_name">%s</xliff:g></string>
     <string name="push_info_notification_explanation_text">Quando si utilizza Push, <xliff:g id="app_name">%1$s</xliff:g> mantiene una connessione al server di posta. Android richiede la visualizzazione di una notifica in corso mentre l\'app è attiva in background. <xliff:g id="optional_extended_explanation">%2$s</xliff:g></string>
-    <string name="account_delete_dlg_instructions_fmt">L\'account \"<xliff:g id="account">%s</xliff:g>\" verrà rimosso da <xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="account_delete_dlg_instructions_fmt">L\'account \"<xliff:g id="account">%1$s</xliff:g>\" verrà rimosso da <xliff:g id="app_name">%2$s</xliff:g>.</string>
     <string name="folder_settings_notifications_label">Notifiche</string>
     <string name="settings_ui_telemetry_title">Utilizzo e dati tecnici</string>
     <string name="settings_ui_telemetry_description">Condividi dati su prestazioni, utilizzo, hardware e personalizzazioni di questa app con Mozilla per aiutarci a migliorare Thunderbird</string>
@@ -896,4 +890,12 @@
     <string name="folder_list_show_hidden_folders">Mostra cartelle nascoste</string>
     <string name="folder_settings_sync_label">Attiva sincronizzazione</string>
     <string name="folder_settings_visible_label">Mostra cartella</string>
+    <string name="save_attachment_action">Salva l\'allegato</string>
+    <string name="volume_navigation_summary">In visualizzazione messaggi naviga con i tasti volume</string>
+    <string name="settings_list_action_support">Supporta <xliff:g id="app_name">%s</xliff:g></string>
+    <string name="volume_navigation_title_short">Naviga con i tasti del volume</string>
+    <string name="expand_content_description">Espandi</string>
+    <string name="empty_spam_action">Spam vuota</string>
+    <string name="dialog_confirm_empty_spam_title">Conferma spam vuota</string>
+    <string name="dialog_confirm_empty_spam_message">Vuoi svuotare la cartella spam?</string>
 </resources>

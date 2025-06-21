@@ -10,12 +10,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.k9mail.feature.account.setup.navigation.AccountSetupNavHost
+import app.k9mail.feature.account.setup.navigation.AccountSetupRoute
 import app.k9mail.feature.onboarding.migration.api.OnboardingMigrationManager
 import app.k9mail.feature.onboarding.permissions.domain.PermissionsDomainContract.UseCase.HasRuntimePermissions
 import app.k9mail.feature.onboarding.permissions.ui.PermissionsScreen
 import app.k9mail.feature.onboarding.welcome.ui.WelcomeScreen
 import app.k9mail.feature.settings.import.ui.SettingsImportAction
 import app.k9mail.feature.settings.import.ui.SettingsImportScreen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 private const val NESTED_NAVIGATION_ROUTE_WELCOME = "welcome"
@@ -52,9 +56,10 @@ private fun NavController.navigateToPermissions() {
 @Suppress("LongMethod")
 @Composable
 fun OnboardingNavHost(
-    onFinish: (String?) -> Unit,
+    onFinish: (OnboardingRoute) -> Unit,
     hasRuntimePermissions: HasRuntimePermissions = koinInject(),
     onboardingMigrationManager: OnboardingMigrationManager = koinInject(),
+    coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main),
 ) {
     val navController = rememberNavController()
     var accountUuid by rememberSaveable { mutableStateOf<String?>(null) }
@@ -63,7 +68,7 @@ fun OnboardingNavHost(
         if (hasRuntimePermissions()) {
             navController.navigateToPermissions()
         } else {
-            onFinish(null)
+            onFinish(OnboardingRoute.Onboarding(null))
         }
     }
 
@@ -97,12 +102,17 @@ fun OnboardingNavHost(
         composable(route = NESTED_NAVIGATION_ROUTE_ACCOUNT_SETUP) {
             AccountSetupNavHost(
                 onBack = { navController.popBackStack() },
-                onFinish = { createdAccountUuid: String ->
-                    accountUuid = createdAccountUuid
-                    if (hasRuntimePermissions()) {
-                        navController.navigateToPermissions()
-                    } else {
-                        onFinish(createdAccountUuid)
+                onFinish = { route: AccountSetupRoute ->
+                    when (route) {
+                        is AccountSetupRoute.AccountSetup -> {
+                            val createdAccountUuid = route.accountId
+                            accountUuid = createdAccountUuid
+                            if (hasRuntimePermissions()) {
+                                navController.navigateToPermissions()
+                            } else {
+                                onFinish(OnboardingRoute.Onboarding(createdAccountUuid))
+                            }
+                        }
                     }
                 },
             )
@@ -120,13 +130,23 @@ fun OnboardingNavHost(
             SettingsImportScreen(
                 action = SettingsImportAction.ScanQrCode,
                 onImportSuccess = ::onImportSuccess,
-                onBack = { navController.popBackStack() },
+                onBack = {
+                    // Fix for the navigation issue causing a ConcurrentModificationException when navigating back
+                    // from the QR code scanner that is nested in the settings import fragment.
+                    // There is a race condition when the fragment result listener is triggered and the
+                    // fragment lifecycle is handled within the composable.
+                    // This is a workaround to postpone immediate interaction with the nav controller,
+                    // until we have a better solution.
+                    coroutineScope.launch {
+                        navController.popBackStack()
+                    }
+                },
             )
         }
 
         composable(route = NESTED_NAVIGATION_ROUTE_PERMISSIONS) {
             PermissionsScreen(
-                onNext = { onFinish(accountUuid) },
+                onNext = { onFinish(OnboardingRoute.Onboarding(accountUuid)) },
             )
         }
     }

@@ -195,7 +195,7 @@
     <string name="global_settings_registered_name_color_changed">Namen in deiner Kontaktliste einfärben</string>
     <string name="general_settings_contact_name_color_label">Farbe des Kontaktnamens</string>
     <string name="global_settings_messageview_fixedwidth_label">Monotype-Schriftart</string>
-    <string name="global_settings_messageview_fixedwidth_summary">Schriftart mit gleicher Zeichenbreite für Nur-Text-Nachrichten verwenden</string>
+    <string name="global_settings_messageview_fixedwidth_summary">Schriftart mit fester Zeichenbreite für Nur-Text-Nachrichten verwenden</string>
     <string name="global_settings_messageview_autofit_width_label">Nachrichtendarstellung</string>
     <string name="global_settings_messageview_autofit_width_summary">Nachrichten auf Displaygröße verkleinern</string>
     <string name="global_settings_confirm_actions_title">Bestätigungsdialog</string>
@@ -395,7 +395,6 @@
     <string name="account_settings_openpgp_missing">Fehlende OpenPGP-App – wurde sie deinstalliert?</string>
     <string name="folder_settings_title">Ordnereinstellungen</string>
     <string name="folder_settings_in_top_group_label">Oben anzeigen</string>
-    <string name="folder_settings_in_top_group_summary">Ordner am Anfang der Ordnerliste anzeigen</string>
     <string name="folder_settings_clear_local_folder_action">Lokale Nachrichten löschen</string>
     <string name="account_settings_incoming_label">Posteingangsserver</string>
     <string name="account_settings_incoming_summary">Einstellungen des Posteingangsservers bearbeiten</string>
@@ -528,7 +527,6 @@
     <string name="integrated_inbox_title">Gemeinsamer Posteingang</string>
     <string name="integrated_inbox_detail">Alle Nachrichten aus integrierten Ordnern</string>
     <string name="folder_settings_include_in_integrated_inbox_label">In gem. Posteingang integrieren</string>
-    <string name="folder_settings_include_in_integrated_inbox_summary">Nachrichten im gemeinsamen Posteingang anzeigen</string>
     <string name="account_settings_no_folder_selected">Keine</string>
     <string name="account_settings_automatic_special_folder">Automatisch (%s)</string>
     <string name="font_size_settings_title">Schriftgröße</string>
@@ -878,7 +876,7 @@ Du kannst diese Nachricht aufheben und sie als Backup für deinen geheimen Schl�
     <string name="push_notification_state_alarm_permission_missing">Fehlende Berechtigung zur Zeitplanung von Alarmen</string>
     <string name="push_notification_grant_alarm_permission">Antippen, um die Berechtigung zu erteilen.</string>
     <string name="dialog_openkeychain_info_text">Die App OpenKeychain ist erforderlich, um die Unterstützung für die Ende-zu-Ende-Verschlüsselung zu aktivieren.</string>
-    <string name="account_delete_dlg_instructions_fmt">Das Konto \"<xliff:g id="account">%s</xliff:g>\" wird aus <xliff:g id="app_name">%s</xliff:g> entfernt.</string>
+    <string name="account_delete_dlg_instructions_fmt">Das Konto \"<xliff:g id="account">%1$s</xliff:g>\" wird aus <xliff:g id="app_name">%2$s</xliff:g> entfernt.</string>
     <string name="about_title">Über <xliff:g id="app_name">%s</xliff:g></string>
     <string name="push_info_notification_explanation_text">Wenn Push verwendet wird, hält <xliff:g id="app_name">%1$s</xliff:g> eine Verbindung zum Mailserver aufrecht. Bei Android muss eine laufende Benachrichtigung angezeigt werden, während die App im Hintergrund aktiv ist. <xliff:g id="optional_extended_explanation">%2$s</xliff:g></string>
     <string name="about_app_authors_thunderbird">Thunderbird Mobile Team</string>
@@ -894,4 +892,8 @@ Du kannst diese Nachricht aufheben und sie als Backup für deinen geheimen Schl�
     <string name="volume_navigation_summary">In der Nachrichtenübersicht mit den Lautstärketasten zwischen den Nachrichten navigieren</string>
     <string name="save_attachment_action">Anhang speichern</string>
     <string name="volume_navigation_title_short">Navigation mit Lautstärketasten</string>
+    <string name="expand_content_description">Erweitern</string>
+    <string name="empty_spam_action">Spam leeren</string>
+    <string name="dialog_confirm_empty_spam_title">Leeren des Spams bestätigen</string>
+    <string name="dialog_confirm_empty_spam_message">Möchtest du den Spam leeren?</string>
 </resources>
